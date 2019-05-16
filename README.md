@@ -1,0 +1,2 @@
+# TER
+Text Embedding Research
