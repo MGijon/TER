@@ -99,15 +99,13 @@ class Embedding(object):
 
         self.wordSynset = lista
 
-    # ESTUDIAR DISTANCIAS ENTRE HIPONIMOS E HIPERONIMOS, tambien ANTONIMOS
-    #    COMPARAR CON LA SIMILARIDAD EN WORDNET    ----> http://www.nltk.org/howto/wordnet.html
-
+'''
     def filterByCriteria(self, criteria=1):
-        '''
+
 
         :param criteria:
         :return: None
-        '''
+
 
         if criteria == 1:
             before = self.words
@@ -125,6 +123,7 @@ class Embedding(object):
             pass
 
         return (result)
+'''
 
     def norm(self, vector, vector2, norma=1):
         '''
@@ -147,7 +146,6 @@ class Embedding(object):
         elif norma == 3 or norma is "cityblock":
             value = scipy.spatial.distance.cityblock(vector, vector2)
 
-
         elif norma == 4 or norma is "l1":
              value = np.linalg.norm((vector - vector2), ord=1)
 
@@ -161,7 +159,6 @@ class Embedding(object):
             value = scipy.spatial.distance.sqeuclidean(vector, vector2)
 
         elif norma == 10 or norma is "jensenshannon":
-
             _P = vector / norm(vector, ord=1)
             _Q = vector2 / norm(vector2, ord=1)
             _M = 0.5 * (_P + _Q)
@@ -180,30 +177,17 @@ class Embedding(object):
         elif norma == 15 or norma is "canberra":
             value = scipy.spatial.distance.canberra(vector, vector2)
 
-
-
         elif norma == 16 or norma is "kulsinski":
             value = scipy.spatial.distance.cdis(vector, vector2)
 
-
-        # eliminar esta cosa ###################################################
-        elif norma == 22 or norma is "volumen":
-            # spere volumen
-
-            calculo = np.power(np.pi, self.embedings_size / 2) * np.power(self.norm(vector, vector2, norma=1), self.embedings_size)
-
-            # me salto el denominador
-            value = calculo
-        # eliminar esta cosa ###################################################
-
-        elif norma == 23 or norma is "max5":
+        elif norma == 17 or norma is "max5":
             # take the sum of the 5 maximun diference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(5, v2)
             value = sum(aux)
 
-        elif norma == 24 or norma is "max10":
+        elif norma == 18 or norma is "max10":
             # take the sum of the 10 maximun diference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
@@ -211,72 +195,53 @@ class Embedding(object):
             value = sum(aux)
 
 
-        elif norma == 25 or norma is "max25":
+        elif norma == 19 or norma is "max25":
             # take the sum of the 25 maximun diference dimensions
-
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(25, v2)
             value = sum(aux)
 
-        elif norma == 26 or norma is "max50":
+        elif norma == 20 or norma is "max50":
             # take the sum of the 50 maximun diference dimensions
-
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(50, v2)
             value = sum(aux)
 
-        elif norma == 27 or norma is "max100":
+        elif norma == 21 or norma is "max100":
             # take the sum of the 100 maximun diference dimensions
-
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(100, v2)
             value = sum(aux)
 
-        elif norma == 28:
+        elif norma == 22:
             value = 0
             for i in range(0, len(vector)):
                 calculo = vector[i] - vector2[i]
                 value += abs(calculo)
 
-        elif norma == 29:
+        elif norma == 23:
             value = 0
             for i in range(0, len(vector)):
                 calculo = np.exp(abs(vector[i] - vector2[i]))
                 value += calculo / (abs(vector[i]) + abs(vector2[i]))
 
-        elif norma == 30:
+        elif norma == 24:
             value = 0
             for i in range(0, len(vector)):
                 calculo = abs(vector[i] - vector2[i])
                 value += calculo / ( np.exp(vector[i]) + np.exp(vector2[i]) )
 
-        elif norma == 31:
+        elif norma == 25:
             value = 0
             for i in range(0, len(vector)):
                 calculo = abs(vector[i] - vector2[i])
                 value += calculo / np.exp( abs(vector[i]) + abs(vector2[i]) )
 
 
-
-
-        # eliminar esta cosa ###################################################
-        elif norma == 32:
-
-            # NO FUNCIONA
-            v1 = normalize(vector.reshape(1, -1))
-            v2 = normalize(vector2.reshape(1, -1))
-            calculo = v1 - v2
-            suma = 0
-            for i in calculo:
-                suma += np.power(i, 2)
-            value = np.sqrt(suma)
-        # eliminar esta cosa ###################################################
-
-        elif norma == 33:
-
+        elif norma == 26:
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(100, v2)
@@ -286,8 +251,7 @@ class Embedding(object):
                 constante = constante - 0.01
             value = sum(aux)
 
-        elif norma == 34:
-
+        elif norma == 27:
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(100, v2)
@@ -298,7 +262,7 @@ class Embedding(object):
             value = sum(aux)
 
 
-        elif norma == 35:
+        elif norma == 28:
 
             non_sing_changes = 0
 
@@ -309,174 +273,16 @@ class Embedding(object):
                     non_sing_changes += 1
 
             value = len(vector) - non_sing_changes
+            '''
         elif norma == 36:
             threshold = 0.5
             pass
-
+            '''
 
         else:
             value = 0
+
         return value
-
-
-    # eliminar esta cosa ###################################################
-    def distanceMatrixComputation(self, metric="euclidean", filename="DistanceMatrix", save=False):
-        # Deberia incluir distinciones para poder almacenar varias matrices para varias distancias y embeddings al mismo tiempo
-
-        # CREAR UN DICCCIONARIO PARA PODER CREARLA MAS COMODAMENTE CON TODAS LAS METRICAS SOPORTADAS
-        filename = filename + '_' + self.embedding_name + '_' + metric
-
-        if len(self.filtered_words) == 0:
-            self.filterWN()
-
-
-        X = [self.embeddings_index[word] for word in self.filtered_words]
-
-        try:
-            self.distanceMatrix = pairwise_distances(X, metric=metric)   # PARAMETRO -1
-        except Exception as e:
-            print(e)
-            pass
-
-        if save:
-            np.savez(filename, self.distanceMatrix)
-
-    def distanceMatrixLoad(self, metric="euclidean", filename="DistanceMatrix"):
-        '''
-            NO FUNCIONA
-        :param metric:
-        :param filename:
-        :return:
-        '''
-        filename = filename + '_' + self.embedding_name + '_' + metric
-
-        matrix = np.load(filename)
-
-        print(type(matrix))
-        print(matrix.shape())
-
-    def distributions_using_matrix(self):
-        '''
-
-        :return:
-        '''
-
-        # Synonims first
-        for conjunto in self.synonims:
-            for word1 in conjunto:
-                for word2 in conjunto:
-                    distance = self.distanceMatrixTwoWords(word1=word1, word2=word2)
-                    if distance!= 0:
-                        self.synonimsDistribution.append(distance)
-
-        # the hole set of words now
-        for i in range(0, len(self.words)):
-            for j in range(i, len(self.words())):
-                distance = self.distanceMatrixTwoWords(word1=self.words[i], word2=self.words[j])
-                if distance != 0:
-                    self.randomDistribution.append(distance)
-
-
-    def distanceMatrixTwoWords(self, word1, word2):
-        '''
-
-        :param word1:
-        :param word2:
-        :return:
-        '''
-
-        indexes = range(0, len(self.filtered_words))
-        self.matrixIndex = dict(zip(self.filtered_words, indexes))
-
-        return self.distanceMatrix[self.matrixIndex[word1]][self.matrixIndex[word2]]
-
-    def NNMatrix(self, word):
-        '''
-
-        :param word:
-        :return:
-        '''
-
-        aux = []
-        fila = self.matrixIndex[word]
-
-        for i in range(0, fila):
-            aux.append(self.distanceMatrix[i][fila])
-        for j in range(fila, len(self.filtered_words)):
-            aux.append(self.distanceMatrix[fila][j])
-
-        aux = aux.sort(reverse=True)
-        distance = aux[0]
-        palabras = []
-
-        for i in range(0, fila):
-            if self.distanceMatrix[i][fila] == distance:
-                palabras.append(self.filtered_words[i])
-        for j in range(fila, len(self.filtered_words)):
-            if self.distanceMatrix[fila][j] == distance:
-                palabras.append(self.filtered_words[i])
-
-        return (palabras, distance)
-
-    def underValueNNMatrix(self, word, threshold):
-        '''
-
-        :param word:
-        :param threshold:
-        :return:
-        '''
-        aux = []
-        fila = self.matrixIndex[word]
-
-        for i in range(0, fila):
-            aux.append(self.distanceMatrix[i][fila])
-        for j in range(fila, len(self.filtered_words)):
-            aux.append(self.distanceMatrix[fila][j])
-
-        aux = [x for x in aux if x <= threshold]    # distancias
-        palabras = []
-
-        for distancia in aux:
-            for i in range(0, fila):
-                if self.distanceMatrix[i][fila] == distancia:
-                    palabras.append(self.filtered_words[i])
-            for j in range(fila, len(self.filtered_words)):
-                if self.distanceMatrix[fila][j] == distancia:
-                    palabras.append(self.filtered_words[j])
-
-        return (palabras, aux)
-
-    def aboveValueNNMatrix(self, word, threshold, number=1, all=False):
-
-        '''
-
-        :param word:
-        :param threshold:
-        :return:
-        '''
-
-        aux = []
-        fila = self.matrixIndex[word]
-
-        for i in range(0, fila):
-            aux.append(self.distanceMatrix[i][fila])
-        for j in range(fila, len(self.filtered_words)):
-            aux.append(self.distanceMatrix[fila][j])
-
-        aux = [x for x in aux if x >= threshold]
-
-        if all:
-            return aux
-        else:
-            aux = aux.sort()
-            return aux[0: number - 1]
-    # eliminar esta cosa ###################################################
-
-
-
-
-
-
 
 
     def randomDistances(self, words, number=5000, all=False, norma=1):
@@ -484,7 +290,8 @@ class Embedding(object):
 
         :param words:
         :param number:
-        :param all:
+        :param all: boolean, if True then take as many random distances as elements
+                    has the set.
         :param norma:
         :return:
         '''
@@ -541,7 +348,7 @@ class Embedding(object):
     def pure_synonims(self):
         '''
         Just compute the set of synonims, without distances
-        :return:
+        :return: None
         '''
         conjunto = []
         for target_word in self.filtered_words:
@@ -945,14 +752,12 @@ class Embedding(object):
 
     def __str__(self):
         '''
-        mensaje para usuarios
         :return:
         '''
-        clase = type(self).__name__  
+        clase = type(self).__name__
 
     def __repr__(self):
         '''
-        mensaje para desarrolladores
         :return:
         '''
 
