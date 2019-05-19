@@ -763,7 +763,7 @@ class Embedding(object):
 
         clase = type(self).__name__
 
-    def test(self):
+    def test(self):c
         '''
         Test function
         :return: None
