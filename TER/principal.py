@@ -325,7 +325,7 @@ class Embedding(object):
         :param number:
         :param all:
         :param norma:
-        :return:
+        :return: array qith distances between elements of the 
         '''
 
         distancias = []
@@ -374,7 +374,7 @@ class Embedding(object):
     def pure_antonims(self):
         '''
         Just compute the set of synonims, without distances
-        :return:
+        :return: None
         '''
 
         conjunto = []
@@ -400,6 +400,11 @@ class Embedding(object):
         self.antonims = conjunto
 
     def antonims_filtered_words(self, norma = 1):
+        '''
+        Fills the antonimsDistribution array (from antonims set)
+        :param norma:
+        :return: None
+        '''
 
         self.pure_antonims() # self.antonims
 
@@ -410,7 +415,7 @@ class Embedding(object):
 
         :param norma:
         :param number:
-        :return:
+        :return: None
         '''
 
         conjunto = []
@@ -440,7 +445,7 @@ class Embedding(object):
         Fill synonimsComplementary array and compute a random sample of their distribution
         :param norma:
         :param number:
-        :return:
+        :return: None
         '''
 
         words_no_synomims = []
@@ -523,9 +528,9 @@ class Embedding(object):
 
     def non_in_vocabulary_distribution(self, norma = 1):
         '''
-
         :param norma:
-        :return:
+        :return: Return array of floats with the distributions of the words that
+                 are not in the filtered group.
         '''
 
         conjunto_palabras = set(self.words) - set(self.filtered_words)
@@ -534,6 +539,8 @@ class Embedding(object):
 
 
 
+    # debo de mejorar mucho esta funcion, para embeddings glove se puede hacer muchisimo
+    # mas rapido.
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[],
                          num_results=1):
         '''
