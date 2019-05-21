@@ -99,31 +99,6 @@ class Embedding(object):
 
         self.wordSynset = lista
 
-'''
-    def filterByCriteria(self, criteria=1):
-
-
-        :param criteria:
-        :return: None
-
-
-        if criteria == 1:
-            before = self.words
-            lenBefore = len(before)
-
-            if len(self.filtered_words) == 0:
-                self.filterWN()
-
-            after = self.filtered_words
-            lenAfter = len(after)
-
-            result = (before, lenBefore, after, lenAfter)
-        else:
-            # de momento, en un futuro podra ser una funcion cualquiera
-            pass
-
-        return (result)
-'''
 
     def norm(self, vector, vector2, norma=1):
         '''
@@ -131,7 +106,8 @@ class Embedding(object):
         :param vector:
         :param vector2:
         :param norma:
-        :return: None
+        :return: value of the distence (under the selected norm) between the
+                 two vectors
         '''
 
         if norma == 1 or norma is "euclidean":
@@ -263,7 +239,6 @@ class Embedding(object):
 
 
         elif norma == 28:
-
             non_sing_changes = 0
 
             for i in range(0, len(vector)):
@@ -273,11 +248,6 @@ class Embedding(object):
                     non_sing_changes += 1
 
             value = len(vector) - non_sing_changes
-            '''
-        elif norma == 36:
-            threshold = 0.5
-            pass
-            '''
 
         else:
             value = 0
@@ -325,7 +295,8 @@ class Embedding(object):
         :param number:
         :param all:
         :param norma:
-        :return: array qith distances between elements of the 
+        :return: array with distances between elements of the sets in the given
+                 set
         '''
 
         distancias = []
@@ -347,7 +318,7 @@ class Embedding(object):
 
     def pure_synonims(self):
         '''
-        Just compute the set of synonims, without distances
+        Compute the set of synonims, without distances
         :return: None
         '''
         conjunto = []
