@@ -22,7 +22,7 @@ import heapq
 from sklearn.preprocessing import normalize
 
 
-class Embedding(object):
+class TER(object):
     '''
     '''
 
@@ -31,11 +31,51 @@ class Embedding(object):
 
         :param path:
         :param embedings_size:
+
+        :var embeddings_index:
+        :var words:
+        :var filtered_words:
+        :var synonims:
+        :var synonimsDistribution:
+        :var random_words_pairs:
+        :var randomDistribution:
+        :var synonimsDistributionComplementary:
+        :var auxiliar_list: esta debe desazparecer como el rayo
+        :var antonims:
+        :var antonimsDistribution:
+        :var wordSynset:
+
+        :func filterWN:
+        :func wordsSynsetConstruct:
+        :func norm:
+        :func randomDistances:
+        :func randomDistances_lista:
+        :func pure_synonims:
+        :func pure_antonims:
+        :func antonims_filtered_words:
+        :func synom_filtered_words:
+        :func synom_complementary:
+        :func random_filtered_words:
+        :func non_filtered_randomWords:
+        :func returnSinonyms:
+        :func distancesBetweenSet:
+        :func non_in_vocabulary_distribution:
+        :func nearestNeighbour:
+        :func clearArrayOfArrays:
+        :func arrayOfArraysToArray:
+        :func saveWords:
+        :func loadWords:
+        :func saveData:
+        :func loadData:
+        :func saveEmbedding:
+        :func loadEmbeddingDict:
+        :func test:
+        :func __str__:
+        :func __repr__:
         '''
 
         self.path = path
         self.embedings_size = embedings_size
-
         self.embeddings_index = {}
         self.words = []
         self.filtered_words = []
@@ -48,11 +88,8 @@ class Embedding(object):
         self.auxiliar_list = []   # list empty prepare for save auxilar data if necessary
         self.antonims = []
         self.antonimsDistribution = []
-
         self.wordSynset = []  # [(word, [synsets it belongs to])]
 
-        self.distanceMatrix = []
-        self.matrixIndex = {}
 
         self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
 
@@ -98,7 +135,6 @@ class Embedding(object):
             lista.append((j, aux))
 
         self.wordSynset = lista
-
 
     def norm(self, vector, vector2, norma=1):
         '''
@@ -254,7 +290,6 @@ class Embedding(object):
 
         return value
 
-
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
 
@@ -315,7 +350,6 @@ class Embedding(object):
 
         return distancias
 
-
     def pure_synonims(self):
         '''
         Compute the set of synonims, without distances
@@ -340,7 +374,6 @@ class Embedding(object):
                     conjunto.remove(conjuntito)
 
         self.synonims = conjunto
-
 
     def pure_antonims(self):
         '''
@@ -455,6 +488,8 @@ class Embedding(object):
         :param number:
         :return:
         '''
+        return None
+
     def returnSinonyms(self, word):
         '''
         Returns and array of synonims of the word passed (based on WordNet)
@@ -512,8 +547,7 @@ class Embedding(object):
 
     # debo de mejorar mucho esta funcion, para embeddings glove se puede hacer muchisimo
     # mas rapido.
-    def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[],
-                         num_results=1):
+    def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
         '''
         Recives a word and compute the NN for it
         :param vector_words:
@@ -575,51 +609,6 @@ class Embedding(object):
                 resoult.append(j)
 
         return (list(set(resoult)))
-
-
-    # eliminar esta cosa ###################################################
-    def closestFight_ConceptProof(self, synonimsOneWords=[], norma=1, enviroment=[]):
-        '''
-
-        :param synonimsOneWords:
-        :param norma:
-        :param enviroment:
-        :return:
-        '''
-
-        palabrasArray = self.arrayOfArraysToArray(self.clearArrayOfArrays(data=synonimsOneWords))
-
-        distancias_synonimos = self.arrayOfArraysToArray(self.distancesBetweenSet(words=synonimsOneWords, norma=norma))
-
-        minSinonimos = min(distancias_synonimos)
-        print(minSinonimos)
-
-        enviroment = set(enviroment)
-        for i in palabrasArray:
-            enviroment.discard(i)
-        enviroment = list(enviroment)
-
-        synonims_lose = 0
-        synonims_win = 0
-
-        for palabra in palabrasArray:
-            print('Palabra ----> ' + palabra)
-
-            try:
-                aux = self.nearestNeighbour(vector_words=[palabra], norma=norma, enviroment=enviroment)
-                print('resultado de NN:    ' + str(aux[0][2]))
-
-                if aux[0][2] < minSinonimos:
-                    synonims_lose += 1
-                else:
-                    synonims_win += 1
-            except Exception as e:
-                pass
-
-        results = [synonims_lose, synonims_win]
-        return results
-        # eliminar esta cosa ###################################################
-
 
     def saveWords(self, name="saveWordsWithoutName"):
         '''
