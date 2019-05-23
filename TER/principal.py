@@ -40,10 +40,11 @@ class TER(object):
         :var random_words_pairs:
         :var randomDistribution:
         :var synonimsDistributionComplementary:
-        :var auxiliar_list: esta debe desazparecer como el rayo
+        :var auxiliar_list: list empty prepare for save auxilar data if necessary DEBE DESAPARECER PRONTO MUHAHAHAHA
         :var antonims:
         :var antonimsDistribution:
-        :var wordSynset:
+        :var wordSynset: [(word, [synsets it belongs to])]
+        :var embedding_name:
 
         :func filterWN:
         :func wordsSynsetConstruct:
@@ -85,15 +86,13 @@ class TER(object):
         self.randomDistribution = []
         self.synonimsDistributionComplementary = []
         self.synonimsComplementary = []
-        self.auxiliar_list = []   # list empty prepare for save auxilar data if necessary
+        self.auxiliar_list = []
         self.antonims = []
         self.antonimsDistribution = []
-        self.wordSynset = []  # [(word, [synsets it belongs to])]
-
-
+        self.wordSynset = []
         self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
 
-
+        # GLOVE
         f = open(os.path.join(self.path, self.embedding_name))
 
         for line in f:
@@ -104,6 +103,11 @@ class TER(object):
 
         f.close()
         self.words = list(self.embeddings_index.keys())
+
+
+        # WORD2VEC
+        self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
+        self.words = list(self.model.vocab)
 
     def filterWN(self):
         '''
@@ -730,7 +734,7 @@ class TER(object):
 
         clase = type(self).__name__
 
-    def test(self):c
+    def test(self):
         '''
         Test function
         :return: None
