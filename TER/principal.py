@@ -26,11 +26,12 @@ class TER(object):
     '''
     '''
 
-    def __init__(self, path='/Users/manuelgijon/Desktop/TFG/Embeddings/', embedings_size=300):
+    def __init__(self, path='/Users/manuelgijon/Desktop/TFG/Embeddings/', embedings_size=300, type='GloVe'):
         '''
 
         :param path:
         :param embedings_size:
+        :param type:
 
         :var embeddings_index:
         :var words:
