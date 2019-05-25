@@ -91,9 +91,13 @@ class TER(object):
         self.antonims = []
         self.antonimsDistribution = []
         self.wordSynset = []
+
+        # debo cambiar esto y AJUSTARLO AL TIPO DE EMBEDDING
         self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
 
         # GLOVE
+        # =====
+
         f = open(os.path.join(self.path, self.embedding_name))
 
         for line in f:
@@ -107,6 +111,8 @@ class TER(object):
 
 
         # WORD2VEC
+        # ========
+
         self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
         self.words = list(self.model.vocab)
 
@@ -550,6 +556,7 @@ class TER(object):
 
 
 
+    ############################################################################
     # debo de mejorar mucho esta funcion, para embeddings glove se puede hacer muchisimo
     # mas rapido.
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
@@ -581,6 +588,7 @@ class TER(object):
 
         return resultado
 
+    ############################################################################
     @staticmethod
     def clearArrayOfArrays(data=[]):
         '''
