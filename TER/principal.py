@@ -78,6 +78,7 @@ class TER(object):
 
         self.path = path
         self.embedings_size = embedings_size
+        self.type = type
         self.embeddings_index = {}
         self.words = []
         self.filtered_words = []
@@ -116,37 +117,8 @@ class TER(object):
         self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
         self.words = list(self.model.vocab)
 
-    def filterWN(self):
-        '''
-        Filtramos por wordnet
-        :return: None
-        '''
-        wn_lemmas = set(wn.all_lemma_names())
-        for j in self.words:
-            if j in wn_lemmas:
-                self.filtered_words.append(j)
 
-        self.filtered_words = list(set(self.filtered_words))
-
-    def wordsSynsetConstruct(self):
-        '''
-
-        :return: None
-        '''
-
-        if len(self.filtered_words) == 0:
-            self.filterWN()
-
-        lista = []
-        for j in self.words:
-            words_synsets = wn.synsets(j)
-            aux = []
-            for i in words_synsets:
-                aux.append(i.name())
-            lista.append((j, aux))
-
-        self.wordSynset = lista
-
+    # esta no habrá que cambiarla ya que directamente recibe vectores
     def norm(self, vector, vector2, norma=1):
         '''
 
@@ -300,6 +272,40 @@ class TER(object):
             value = 0
 
         return value
+
+
+    # DEBO ACTUALIZALA
+    def filterWN(self):
+        '''
+        Filtramos por wordnet
+        :return: None
+        '''
+        wn_lemmas = set(wn.all_lemma_names())
+        for j in self.words:
+            if j in wn_lemmas:
+                self.filtered_words.append(j)
+
+        self.filtered_words = list(set(self.filtered_words))
+
+    def wordsSynsetConstruct(self):
+        '''
+
+        :return: None
+        '''
+
+        if len(self.filtered_words) == 0:
+            self.filterWN()
+
+        lista = []
+        for j in self.words:
+            words_synsets = wn.synsets(j)
+            aux = []
+            for i in words_synsets:
+                aux.append(i.name())
+            lista.append((j, aux))
+
+        self.wordSynset = lista
+
 
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
