@@ -1,2 +1,2 @@
 # WER
-Wext Embedding Research
+Word Embedding Research
