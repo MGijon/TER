@@ -1,2 +1,2 @@
-# TER
-Text Embedding Research
+# WER
+Word Embedding Research
