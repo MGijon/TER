@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 
 setup(
-     name='TER',
+     name='WER',
      version='0.1',
      scripts=['principal'] ,
      author="Manuel Gijón Agudo",

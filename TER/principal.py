@@ -76,9 +76,11 @@ class TER(object):
         :func __repr__:
         '''
 
+        allowed_types = ['GloVe':1, 'Word2Vec':2]
+
         self.path = path
         self.embedings_size = embedings_size
-        self.type = type
+        self.type = allowed_types[type]
         self.embeddings_index = {}
         self.words = []
         self.filtered_words = []
@@ -93,30 +95,34 @@ class TER(object):
         self.antonimsDistribution = []
         self.wordSynset = []
 
-        # debo cambiar esto y AJUSTARLO AL TIPO DE EMBEDDING
-        self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
-
         # GLOVE
         # =====
+        if type == 1:
+            # debo cambiar esto y AJUSTARLO AL TIPO DE EMBEDDING
+            self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
 
-        f = open(os.path.join(self.path, self.embedding_name))
 
-        for line in f:
-            values = line.split()
-            word = values[0]
-            coefs = np.asarray(values[1:], dtype='float32')
-            self.embeddings_index[word] = coefs
 
-        f.close()
-        self.words = list(self.embeddings_index.keys())
+            f = open(os.path.join(self.path, self.embedding_name))
+
+            for line in f:
+                values = line.split()
+                word = values[0]
+                coefs = np.asarray(values[1:], dtype='float32')
+                self.embeddings_index[word] = coefs
+
+            f.close()
+            self.words = list(self.embeddings_index.keys())
 
 
         # WORD2VEC
         # ========
+        elif type == 2:
+            self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
+            self.words = list(self.model.vocab)
 
-        self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
-        self.words = list(self.model.vocab)
-
+        else:
+            print('ERROR')
 
     # esta no habrá que cambiarla ya que directamente recibe vectores
     def norm(self, vector, vector2, norma=1):
