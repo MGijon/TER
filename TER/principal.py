@@ -773,3 +773,10 @@ class TER(object):
         resoult2 = self.norm(vector=vector, vector2=vector2,
                              norma=2)
         print(resoult2)
+
+
+
+emb = TER()
+emb.test()
+
+# realizar unit testing and integration testing
