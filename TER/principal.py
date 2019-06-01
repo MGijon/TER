@@ -26,12 +26,13 @@ class TER(object):
     '''
     '''
 
-    def __init__(self, path='/Users/manuelgijon/Desktop/TFG/Embeddings/', embedings_size=300, type='GloVe'):
+    def __init__(self, path='/Users/manuelgijon/Desktop/TFG/Embeddings/', embedings_size=300, type='GloVe', log='bla bla'):
         '''
 
         :param path:
         :param embedings_size:
         :param type:
+        :param log: name of the log filer
 
         :var embeddings_index:
         :var words:
@@ -123,6 +124,20 @@ class TER(object):
 
         else:
             print('ERROR')
+
+        ## inicializamos el logger
+        logger_name = log
+
+        logger = logging.getLogger(logger_name)
+        logger.setLevel(logging.DEBUG)
+        fh = logging.FileHandler(logger_name + '.log')
+        fh.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+
+        #logger.info('Vocabulary filtered\n')
+
 
     # esta no habrá que cambiarla ya que directamente recibe vectores
     def norm(self, vector, vector2, norma=1):
