@@ -150,6 +150,7 @@ class TER(object):
                  two vectors
         '''
 
+
         if norma == 1 or norma is "euclidean":
             calculo = vector - vector2
             suma = 0
@@ -295,18 +296,21 @@ class TER(object):
         return value
 
 
+
     # DEBO ACTUALIZALA
     def filterWN(self):
         '''
         Filtramos por wordnet
         :return: None
         '''
+        logger.info('Starting filtrated with WordNet')
         wn_lemmas = set(wn.all_lemma_names())
         for j in self.words:
             if j in wn_lemmas:
                 self.filtered_words.append(j)
 
         self.filtered_words = list(set(self.filtered_words))
+        logger.info('Finished filtrated with WordNet')
 
     def wordsSynsetConstruct(self):
         '''
@@ -339,6 +343,7 @@ class TER(object):
         :return:
         '''
 
+        logger.info("Start taking random distances")
         distancias = []
 
         pairs = []
@@ -359,6 +364,7 @@ class TER(object):
                 distancias.append(0)
                 pass
 
+        logger.info("Finished random distances")
         return distancias
 
     def randomDistances_lista(self, lista, norma=1):
