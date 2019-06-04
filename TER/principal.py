@@ -629,7 +629,7 @@ class TER(object):
         :param data:
         :return:
         '''
-
+        logger.info("Starting clearArrayOfArrays")
         newData = []
         for i in data:
             auxiliar = []
@@ -639,6 +639,7 @@ class TER(object):
             if len(auxiliar) != 0:
                 newData.append(auxiliar)
 
+        logger.info("Ended clearArrayOfArrays")
         return (newData)
 
     @staticmethod
@@ -648,12 +649,13 @@ class TER(object):
         :param data:
         :return:
         '''
-
+        logger.info("Starting arrayOfArraysToArray")
         resoult = []
         for i in data:
             for j in i:
                 resoult.append(j)
 
+        logger.info("Ended arrayOfArraysToArray")
         return (list(set(resoult)))
 
     def saveWords(self, name="saveWordsWithoutName"):
@@ -663,6 +665,7 @@ class TER(object):
         :return: None
         '''
 
+        logger.info('Starting saveWords')
         try:
             filename = name
             outfile = open(filename, 'wb')
@@ -671,6 +674,7 @@ class TER(object):
         except Exception as e:
             print(e)
             pass
+        looger.info('Finished saveWords')
 
     @staticmethod
     def loadWords(name="saveWordsWithoutName"):
@@ -679,12 +683,12 @@ class TER(object):
         :param name: name of the file
         :return: Array of strings
         '''
-
+        looging.info("Starting laodWords")
         filename = name
         infile = open(filename, 'rb')
         data = plk.load(infile)
         infile.close
-
+        looging.info("Ended loadWords")
         return (data)
 
     @staticmethod
