@@ -49,20 +49,20 @@ class TER(object):
         :var embedding_name:
 
         :func filterWN:
-        :func wordsSynsetConstruct:
+        :func wordSynsetConstruct:
         :func norm:
         :func randomDistances:
-        :func randomDistances_lista:
-        :func pure_synonims:
-        :func pure_antonims:
-        :func antonims_filtered_words:
-        :func synom_filtered_words:
-        :func synom_complementary:
-        :func random_filtered_words:
+        :func randomDistancesList:
+        :func pureSynonyms:
+        :func pureAntonyms:
+        :func antonymsFilteredWords:
+        :func synonymsFilteredWords:
+        :func synonymsComplementary:
+        :func randomFilteredWords:
         :func non_filtered_randomWords:
         :func returnSinonyms:
         :func distancesBetweenSet:
-        :func non_in_vocabulary_distribution:
+        :func notVocabularyDistribution:
         :func nearestNeighbour:
         :func clearArrayOfArrays:
         :func arrayOfArraysToArray:
@@ -140,7 +140,6 @@ class TER(object):
         #logger.info('Vocabulary filtered\n')
 
 
-    # esta no habrá que cambiarla ya que directamente recibe vectores
     def norm(self, vector, vector2, norma=1):
         '''
 
@@ -234,7 +233,7 @@ class TER(object):
             aux = heapq.nlargest(100, v2)
             value = sum(aux)
 
-        elif norma == 22:
+    '''    elif norma == 22:
             value = 0
             for i in range(0, len(vector)):
                 calculo = vector[i] - vector2[i]
@@ -279,7 +278,7 @@ class TER(object):
                 constante = constante - 0.05
             value = sum(aux)
 
-
+'''
         elif norma == 28:
             non_sing_changes = 0
 
@@ -296,9 +295,6 @@ class TER(object):
 
         return value
 
-
-
-    # DEBO ACTUALIZALA
     def filterWN(self):
         '''
         Filtramos por wordnet
@@ -312,26 +308,6 @@ class TER(object):
 
         self.filtered_words = list(set(self.filtered_words))
         logger.info('Finished filtrated with WordNet')
-
-    def wordsSynsetConstruct(self):
-        '''
-
-        :return: None
-        '''
-
-        if len(self.filtered_words) == 0:
-            self.filterWN()
-
-        lista = []
-        for j in self.words:
-            words_synsets = wn.synsets(j)
-            aux = []
-            for i in words_synsets:
-                aux.append(i.name())
-            lista.append((j, aux))
-
-        self.wordSynset = lista
-
 
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
@@ -368,7 +344,7 @@ class TER(object):
         logger.info("Finished random distances")
         return distancias
 
-    def randomDistances_lista(self, lista, norma=1):
+    def randomDistancesList(self, list, norma=1):
         '''
 
         :param lista:
@@ -380,7 +356,7 @@ class TER(object):
         '''
 
         distancias = []
-        for conjunto_sinonimos in lista:
+        for conjunto_sinonimos in list:
             conjunto_sinonimos = list(set(conjunto_sinonimos))
             for i in range(0, len(conjunto_sinonimos)):
                 if i + 1 < len(conjunto_sinonimos):
@@ -395,7 +371,7 @@ class TER(object):
 
         return distancias
 
-    def pure_synonims(self):
+    def pureSynonyms(self):
         '''
         Compute the set of synonims, without distances
         :return: None
@@ -420,7 +396,7 @@ class TER(object):
 
         self.synonims = conjunto
 
-    def pure_antonims(self):
+    def pureAntonyms(self):
         '''
         Just compute the set of synonims, without distances
         :return: None
@@ -448,18 +424,18 @@ class TER(object):
 
         self.antonims = conjunto
 
-    def antonims_filtered_words(self, norma = 1):
+    def antonymsFilteredWords(self, norma = 1):
         '''
         Fills the antonimsDistribution array (from antonims set)
         :param norma:
         :return: None
         '''
 
-        self.pure_antonims() # self.antonims
+        self.pureAntonyms() # self.antonims
 
-        self.antonimsDistribution = self.randomDistances_lista(self.antonims, norma = norma)
+        self.antonimsDistribution = self.randomDistancesList(self.antonims, norma = norma)
 
-    def synom_filtered_words(self, norma=1):
+    def synonymsFilteredWords(self, norma=1):
         '''
 
         :param norma:
@@ -487,9 +463,9 @@ class TER(object):
 
         self.synonims = conjunto
 
-        self.synonimsDistribution = self.randomDistances_lista(lista=conjunto, norma=norma)
+        self.synonimsDistribution = self.randomDistancesList(lista=conjunto, norma=norma)
 
-    def synom_complementary(self, norma=1, number=5000):
+    def synonymsComplementary(self, norma=1, number=5000):
         '''
         Fill synonimsComplementary array and compute a random sample of their distribution
         :param norma:
@@ -513,7 +489,7 @@ class TER(object):
 
         self.synonimsDistributionComplementary = self.randomDistances(words=auxiliar, norma=norma, number=number)
 
-    def random_filtered_words(self, norma=1, number=5000, all=False):
+    def randomFilteredWords(self, norma=1, number=5000, all=False):
         '''
 
         :param norma:
@@ -526,14 +502,6 @@ class TER(object):
         else:
             self.randomDistribution = self.randomDistances(words=self.filtered_words, norma=norma, number=number)
 
-    def non_filtered_randomWords(self, norma=1, number = 10000):
-        '''
-
-        :param norma:
-        :param number:
-        :return:
-        '''
-        return None
 
     def returnSinonyms(self, word):
         '''
@@ -577,7 +545,7 @@ class TER(object):
 
         return (result)
 
-    def non_in_vocabulary_distribution(self, norma = 1):
+    def notVocabularyDistribution(self, norma = 1):
         '''
         :param norma:
         :return: Return array of floats with the distributions of the words that
@@ -589,10 +557,25 @@ class TER(object):
         return self.randomDistances(norma=norma, words=list(conjunto_palabras), number=10000)
 
 
+    def wordSynsetConstruct(self):
+        '''
 
-    ############################################################################
-    # debo de mejorar mucho esta funcion, para embeddings glove se puede hacer muchisimo
-    # mas rapido.
+        :return: None
+        '''
+
+        if len(self.filtered_words) == 0:
+            self.filterWN()
+
+        lista = []
+        for j in self.words:
+            words_synsets = wn.synsets(j)
+            aux = []
+            for i in words_synsets:
+                aux.append(i.name())
+            lista.append((j, aux))
+
+        self.wordSynset = lista
+.
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
         '''
         Recives a word and compute the NN for it
@@ -622,7 +605,6 @@ class TER(object):
 
         return resultado
 
-    ############################################################################
     @staticmethod
     def clearArrayOfArrays(data=[]):
         '''

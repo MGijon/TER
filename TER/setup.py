@@ -8,7 +8,8 @@ with open("README.md", "r") as fh:
 setup(
      name='WER',
      version='0.1',
-     scripts=['principal'] ,
+     scripts=['principal',
+              'graphics'] ,
      author="Manuel Gijón Agudo",
      author_email="manuel.gijon@outlook.es",
      description="bla bla bla bla",
