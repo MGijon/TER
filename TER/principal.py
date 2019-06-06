@@ -20,7 +20,7 @@ from sklearn.metrics.pairwise import pairwise_kernels
 
 import heapq
 from sklearn.preprocessing import normalize
-
+import logging
 
 class TER(object):
     '''
@@ -77,7 +77,8 @@ class TER(object):
         :func __repr__:
         '''
 
-        allowed_types = ['GloVe':1, 'Word2Vec':2]
+        allowed_types = {'GloVe':1,
+                         'Word2Vec':2}
 
         self.path = path
         self.embedings_size = embedings_size
@@ -683,12 +684,12 @@ class TER(object):
         :param name: name of the file
         :return: Array of strings
         '''
-        looging.info("Starting laodWords")
+        logger.info("Starting laodWords")
         filename = name
         infile = open(filename, 'rb')
         data = plk.load(infile)
         infile.close
-        looging.info("Ended loadWords")
+        looger.info("Ended loadWords")
         return (data)
 
     @staticmethod
@@ -792,7 +793,8 @@ class TER(object):
         resoult = self.norm(vector=vector, norma=1)
         print(resoult)
 
-        resoult2 = self.norm(vector=vector, vector2=vector2, norma=1)
+        resoult2 = self.norm(vector=vector, vector2=vector2,
+                             norma=1)
         print(resoult2)
 
         resoult2 = self.norm(vector=vector, vector2=vector2,
@@ -801,7 +803,6 @@ class TER(object):
 
 
 
-emb = TER()
-emb.test()
+
 
 # realizar unit testing and integration testing
