@@ -24,7 +24,7 @@ import logging
 import gensim
 
 
-class TER(object):
+class WER(object):
     '''
     '''
 
@@ -281,23 +281,48 @@ class TER(object):
         distancias = []
 
         pairs = []
-        
-        if all:
-            number = len(words)
+        # GloVe
+        # =====
+        if self.type == 1:
+            if all:
+                number = len(words)
 
-        for i in range(1, number - 1):
-            secure_random = random.SystemRandom()
-            pairs.append((secure_random.choice(words), secure_random.choice(words)))
+            for i in range(1, number - 1):
+                secure_random = random.SystemRandom()
+                pairs.append((secure_random.choice(words), secure_random.choice(words)))
 
-        for j in range(0, number - 1):
-            try:
-                distancia = self.norm(vector=self.embeddings_index[words[j]],
-                                      vector2=self.embeddings_index[words[j + 1]], norma=norma)
-                distancias.append(distancia)
-            except Exception as e:
-                print (e)
-                distancias.append(0)
-                pass
+            for j in range(0, number - 1):
+                try:
+                    distancia = self.norm(vector=self.embeddings_index[words[j]],
+                                          vector2=self.embeddings_index[words[j + 1]], norma=norma)
+                    distancias.append(distancia)
+                except Exception as e:
+                    print (e)
+                    distancias.append(0)
+                    pass
+
+        # Word2Vec
+        # ========
+        elif self.type == 2:
+            if all:
+                number = len(words)
+
+            for i in range(1, number - 1):
+                secure_random = random.SystemRandom()
+                pairs.append((secure_random.choice(words), secure_random.choice(words)))
+
+            for j in range(0, number - 1):
+                try:
+                    distancia = self.norm(vector=self.model.get_vector(words[j]),
+                                          vector2=self.model.get_vector(words[j + 1]), norma=norma)
+                    distancias.append(distancia)
+                except Exception as e:
+                    print (e)
+                    distancias.append(0)
+                    pass
+
+        else:
+            pass
 
         self.logger.info("Finished random distances")
         return distancias
@@ -314,19 +339,43 @@ class TER(object):
         '''
 
         distancias = []
-        for conjunto_sinonimos in list:
-            conjunto_sinonimos = list(set(conjunto_sinonimos))
-            for i in range(0, len(conjunto_sinonimos)):
-                if i + 1 < len(conjunto_sinonimos):
-                    try:
-                        distancia = self.norm(vector=self.embeddings_index[conjunto_sinonimos[i]],
-                                              vector2=self.embeddings_index[conjunto_sinonimos[i + 1]], norma=norma)
-                        distancias.append(distancia)
-                    except Exception as e:
-                        print(e)
-                        distancias.append(0)
-                        pass
 
+        # GloVe
+        # =====
+        if self.type == 1:
+            for conjunto_sinonimos in list:
+                conjunto_sinonimos = list(set(conjunto_sinonimos))
+                for i in range(0, len(conjunto_sinonimos)):
+                    if i + 1 < len(conjunto_sinonimos):
+                        try:
+                            distancia = self.norm(vector=self.embeddings_index[conjunto_sinonimos[i]],
+                                                  vector2=self.embeddings_index[conjunto_sinonimos[i + 1]], norma=norma)
+                            distancias.append(distancia)
+                        except Exception as e:
+                            print(e)
+                            distancias.append(0)
+                            pass
+
+        # Word2Vec
+        # ========
+        elif self.type == 2:
+            for conjunto_sinonimos in lista:
+                conjunto_sinonimos = list(set(conjunto_sinonimos))
+                for i in range(0, len(conjunto_sinonimos)):
+                    if i + 1 < len(conjunto_sinonimos):
+                        try:
+                            distancia = self.norm(vector=self.model.get_vector(conjunto_sinonimos[i]),
+                                                  vector2=self.model.get_vector(conjunto_sinonimos[i + 1]), norma=norma)
+                            distancias.append(distancia)
+                        except Exception as e:
+                            print(e)
+                            distancias.append(0)
+                            pass
+        else:
+            pass
+
+
+        self.logger.info('Finished random distances in the array of arrays')
         return distancias
 
     def pureSynonyms(self):
@@ -420,7 +469,6 @@ class TER(object):
                     conjunto.remove(conjuntito)
 
         self.synonims = conjunto
-
         self.synonimsDistribution = self.randomDistancesList(lista=conjunto, norma=norma)
 
     def synonymsComplementary(self, norma=1, number=5000):
@@ -489,17 +537,38 @@ class TER(object):
         '''
 
         result = []
-        for j in words:
-            aux = []
-            for i in j[1:]:
-                inicial = self.embeddings_index[i[0]]
-                try:
-                    valor = self.norm(vector=inicial, vector2=self.embeddings_index[i], norma=norma)
-                    aux.append(valor)
-                except KeyError:
-                    pass
+        # GloVe
+        # =====
+        if self.type == 1:
+            for j in words:
+                aux = []
+                for i in j[1:]:
+                    inicial = self.embeddings_index[i[0]]
+                    try:
+                        valor = self.norm(vector=inicial, vector2=self.embeddings_index[i], norma=norma)
+                        aux.append(valor)
+                    except KeyError:
+                        pass
 
-            result.append(aux)
+                result.append(aux)
+        # Word2Vec
+        # ========
+        elif self.type == 2:
+            for j in words:
+                aux = []
+                for i in j[1:]:
+                    inicial = self.model.get_vector[i[0]]
+                    try:
+                        valor = self.norm(vector=inicial, vector2=self.model.get_vector[i], norma=norma)
+                        aux.append(valor)
+                    except KeyError:
+                        pass
+
+                result.append(aux)
+
+        else:
+            pass
+
 
         return (result)
 
@@ -580,7 +649,7 @@ class TER(object):
             if len(auxiliar) != 0:
                 newData.append(auxiliar)
 
-        logger.info("Ended clearArrayOfArrays")
+        self.logger.info("Ended clearArrayOfArrays")
         return (newData)
 
     @staticmethod
@@ -596,7 +665,7 @@ class TER(object):
             for j in i:
                 resoult.append(j)
 
-        logger.info("Ended arrayOfArraysToArray")
+        self.logger.info("Ended arrayOfArraysToArray")
         return (list(set(resoult)))
 
     def saveWords(self, name="saveWordsWithoutName"):
