@@ -1,4 +1,6 @@
 from principal import TER
 
+print('inicializamos: \n')
 
-print('Vamos por buen camino')
+embedding = TER(path="Embeddings/")
+embedding.test()

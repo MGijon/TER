@@ -26,7 +26,7 @@ class TER(object):
     '''
     '''
 
-    def __init__(self, path='/Users/manuelgijon/Desktop/TFG/Embeddings/', embedings_size=300, type='GloVe', log='bla bla'):
+    def __init__(self, path='Embeddings/', embedings_size=300, type='GloVe', log=''):
         '''
 
         :param path:
@@ -97,9 +97,20 @@ class TER(object):
         self.antonimsDistribution = []
         self.wordSynset = []
 
+        ## inicializamos el logger
+        logger_name = log
+
+        logger = logging.getLogger(logger_name)
+        logger.setLevel(logging.DEBUG)
+        fh = logging.FileHandler(logger_name + '.log')
+        fh.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+        
         # GLOVE
         # =====
-        if type == 1:
+        if self.type == 1:
             # debo cambiar esto y AJUSTARLO AL TIPO DE EMBEDDING
             self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
 
@@ -116,26 +127,18 @@ class TER(object):
             f.close()
             self.words = list(self.embeddings_index.keys())
 
+            print('Carga el embedding de GloVE')
 
         # WORD2VEC
         # ========
-        elif type == 2:
+        elif self.type == 2:
             self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
             self.words = list(self.model.vocab)
 
         else:
-            print('ERROR')
+            print('ERROR de mierda')
 
-        ## inicializamos el logger
-        logger_name = log
 
-        logger = logging.getLogger(logger_name)
-        logger.setLevel(logging.DEBUG)
-        fh = logging.FileHandler(logger_name + '.log')
-        fh.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        fh.setFormatter(formatter)
-        logger.addHandler(fh)
 
         #logger.info('Vocabulary filtered\n')
 
@@ -152,7 +155,9 @@ class TER(object):
 
 
         if norma == 1 or norma is "euclidean":
-            calculo = vector - vector2
+            calculo = vector
+            for i in range(0, len(vector)):
+                calculo[i] = calculo[i] - vector2[i]
             suma = 0
             for i in calculo:
                 suma += np.power(i, 2)
@@ -726,16 +731,11 @@ class TER(object):
         vector = [1, 1, 1, 1, 1, 1, 1, 1]
         vector2 = [1, 1, 1, 1, 1, 1, 100, 100]
 
-        resoult = self.norm(vector=vector, norma=1)
-        print(resoult)
-
-        resoult2 = self.norm(vector=vector, vector2=vector2,
-                             norma=1)
-        print(resoult2)
-
         resoult2 = self.norm(vector=vector, vector2=vector2,
                              norma=2)
         print(resoult2)
+
+
 
 
 
