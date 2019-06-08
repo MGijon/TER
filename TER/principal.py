@@ -21,6 +21,8 @@ from sklearn.metrics.pairwise import pairwise_kernels
 import heapq
 from sklearn.preprocessing import normalize
 import logging
+import gensim
+
 
 class TER(object):
     '''
@@ -100,22 +102,19 @@ class TER(object):
         ## inicializamos el logger
         logger_name = log
 
-        logger = logging.getLogger(logger_name)
-        logger.setLevel(logging.DEBUG)
+        self.logger = logging.getLogger(logger_name)
+        self.logger.setLevel(logging.DEBUG)
         fh = logging.FileHandler(logger_name + '.log')
         fh.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         fh.setFormatter(formatter)
-        logger.addHandler(fh)
-        
+        self.logger.addHandler(fh)
+
         # GLOVE
         # =====
         if self.type == 1:
-            # debo cambiar esto y AJUSTARLO AL TIPO DE EMBEDDING
+
             self.embedding_name = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
-
-
-
             f = open(os.path.join(self.path, self.embedding_name))
 
             for line in f:
@@ -127,7 +126,7 @@ class TER(object):
             f.close()
             self.words = list(self.embeddings_index.keys())
 
-            print('Carga el embedding de GloVE')
+            self.logger.info('-. GloVe embedding .-')
 
         # WORD2VEC
         # ========
@@ -135,12 +134,11 @@ class TER(object):
             self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
             self.words = list(self.model.vocab)
 
+            self.logger.info('-. Word2Vec embedding .-')
+
         else:
-            print('ERROR de mierda')
-
-
-
-        #logger.info('Vocabulary filtered\n')
+            print('ERROR')
+            self.logger.info('FATAL ERROR, the embedding has not been charged')
 
 
     def norm(self, vector, vector2, norma=1):
@@ -259,14 +257,14 @@ class TER(object):
         Filtramos por wordnet
         :return: None
         '''
-        logger.info('Starting filtrated with WordNet')
+        self.logger.info('Starting filtrated with WordNet')
         wn_lemmas = set(wn.all_lemma_names())
         for j in self.words:
             if j in wn_lemmas:
                 self.filtered_words.append(j)
 
         self.filtered_words = list(set(self.filtered_words))
-        logger.info('Finished filtrated with WordNet')
+        self.logger.info('Finished filtrated with WordNet')
 
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
@@ -279,10 +277,11 @@ class TER(object):
         :return:
         '''
 
-        logger.info("Start taking random distances")
+        self.logger.info("Start taking random distances")
         distancias = []
 
         pairs = []
+        
         if all:
             number = len(words)
 
@@ -300,7 +299,7 @@ class TER(object):
                 distancias.append(0)
                 pass
 
-        logger.info("Finished random distances")
+        self.logger.info("Finished random distances")
         return distancias
 
     def randomDistancesList(self, list, norma=1):
@@ -607,7 +606,7 @@ class TER(object):
         :return: None
         '''
 
-        logger.info('Starting saveWords')
+        self.logger.info('Starting saveWords')
         try:
             filename = name
             outfile = open(filename, 'wb')
@@ -616,7 +615,7 @@ class TER(object):
         except Exception as e:
             print(e)
             pass
-        looger.info('Finished saveWords')
+        self.looger.info('Finished saveWords')
 
     @staticmethod
     def loadWords(name="saveWordsWithoutName"):
@@ -625,12 +624,12 @@ class TER(object):
         :param name: name of the file
         :return: Array of strings
         '''
-        logger.info("Starting laodWords")
+        self.logger.info("Starting laodWords")
         filename = name
         infile = open(filename, 'rb')
         data = plk.load(infile)
         infile.close
-        looger.info("Ended loadWords")
+        self.looger.info("Ended loadWords")
         return (data)
 
     @staticmethod

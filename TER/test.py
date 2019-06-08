@@ -1,6 +1,7 @@
 from principal import TER
 
-print('inicializamos: \n')
+embedding = TER(path="Embeddings/", type='Word2Vec')
+embedding.filterWN()
 
-embedding = TER(path="Embeddings/")
-embedding.test()
+print(len(embedding.words))
+print(len(embedding.filtered_words))
