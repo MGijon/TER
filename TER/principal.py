@@ -233,52 +233,6 @@ class TER(object):
             aux = heapq.nlargest(100, v2)
             value = sum(aux)
 
-    '''    elif norma == 22:
-            value = 0
-            for i in range(0, len(vector)):
-                calculo = vector[i] - vector2[i]
-                value += abs(calculo)
-
-        elif norma == 23:
-            value = 0
-            for i in range(0, len(vector)):
-                calculo = np.exp(abs(vector[i] - vector2[i]))
-                value += calculo / (abs(vector[i]) + abs(vector2[i]))
-
-        elif norma == 24:
-            value = 0
-            for i in range(0, len(vector)):
-                calculo = abs(vector[i] - vector2[i])
-                value += calculo / ( np.exp(vector[i]) + np.exp(vector2[i]) )
-
-        elif norma == 25:
-            value = 0
-            for i in range(0, len(vector)):
-                calculo = abs(vector[i] - vector2[i])
-                value += calculo / np.exp( abs(vector[i]) + abs(vector2[i]) )
-
-
-        elif norma == 26:
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(100, v2)
-            constante = 1
-            for n in range(0, len(aux)):
-                aux[n] = constante * aux[n]
-                constante = constante - 0.01
-            value = sum(aux)
-
-        elif norma == 27:
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(100, v2)
-            constante = 1
-            for n in range(0, len(aux)):
-                aux[n] = constante * aux[n]
-                constante = constante - 0.05
-            value = sum(aux)
-
-'''
         elif norma == 28:
             non_sing_changes = 0
 
@@ -575,7 +529,7 @@ class TER(object):
             lista.append((j, aux))
 
         self.wordSynset = lista
-.
+
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
         '''
         Recives a word and compute the NN for it
