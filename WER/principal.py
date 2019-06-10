@@ -252,6 +252,31 @@ class WER(object):
 
         return value
 
+    def returnVector(self, setOfWords = []):
+        '''
+
+        :param setOfWords:
+        :return:
+        '''
+
+        setOfArrays = [] # cqmbiar nombre en el futuro, este conjunto no es un set si no un array
+
+        # GloVe
+        # =====
+        if self.type == 1:
+            for word in setOfWords:
+                setOfArrays.append(self.embeddings_index[word])
+
+        # Word2Vec
+        # ========
+        elif self.type == 2:
+            for word in setOfWords:
+                setOfArrays.append(self.model.get_vector(word))
+        else:
+            pass
+
+        return setOfArrays
+
     def filterWN(self):
         '''
         Filtramos por wordnet

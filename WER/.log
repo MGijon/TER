@@ -52,3 +52,18 @@
 2019-06-08 23:15:25,659 - root - INFO - -. Word2Vec embedding .-
 2019-06-08 23:15:25,659 - root - INFO - Starting filtrated with WordNet
 2019-06-08 23:15:29,091 - root - INFO - Finished filtrated with WordNet
+2019-06-10 16:47:03,401 - gensim.models.utils_any2vec - INFO - loading projection weights from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:47:03,414 - smart_open.smart_open_lib - DEBUG - {'kw': {}, 'mode': 'rb', 'uri': 'Embeddings/GoogleNews-vectors-negative300.bin.gz'}
+2019-06-10 16:47:03,422 - smart_open.smart_open_lib - DEBUG - encoding_wrapper: {'errors': 'strict', 'encoding': None, 'mode': 'rb', 'fileobj': <gzip _io.BufferedReader name='Embeddings/GoogleNews-vectors-negative300.bin.gz' 0x107aa6400>}
+2019-06-10 16:48:53,702 - gensim.models.utils_any2vec - INFO - loaded (3000000, 300) matrix from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:48:54,284 - root - INFO - -. Word2Vec embedding .-
+2019-06-10 16:49:16,832 - gensim.models.utils_any2vec - INFO - loading projection weights from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:49:16,833 - smart_open.smart_open_lib - DEBUG - {'kw': {}, 'mode': 'rb', 'uri': 'Embeddings/GoogleNews-vectors-negative300.bin.gz'}
+2019-06-10 16:49:16,833 - smart_open.smart_open_lib - DEBUG - encoding_wrapper: {'errors': 'strict', 'encoding': None, 'mode': 'rb', 'fileobj': <gzip _io.BufferedReader name='Embeddings/GoogleNews-vectors-negative300.bin.gz' 0x1a0c0b1320>}
+2019-06-10 16:51:08,833 - gensim.models.utils_any2vec - INFO - loaded (3000000, 300) matrix from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:51:09,591 - root - INFO - -. Word2Vec embedding .-
+2019-06-10 16:52:23,911 - gensim.models.utils_any2vec - INFO - loading projection weights from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:52:23,912 - smart_open.smart_open_lib - DEBUG - {'kw': {}, 'mode': 'rb', 'uri': 'Embeddings/GoogleNews-vectors-negative300.bin.gz'}
+2019-06-10 16:52:23,912 - smart_open.smart_open_lib - DEBUG - encoding_wrapper: {'errors': 'strict', 'encoding': None, 'mode': 'rb', 'fileobj': <gzip _io.BufferedReader name='Embeddings/GoogleNews-vectors-negative300.bin.gz' 0x1a0e33e320>}
+2019-06-10 16:54:05,698 - gensim.models.utils_any2vec - INFO - loaded (3000000, 300) matrix from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-10 16:54:06,066 - root - INFO - -. Word2Vec embedding .-
