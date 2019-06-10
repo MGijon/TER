@@ -67,3 +67,31 @@
 2019-06-10 16:52:23,912 - smart_open.smart_open_lib - DEBUG - encoding_wrapper: {'errors': 'strict', 'encoding': None, 'mode': 'rb', 'fileobj': <gzip _io.BufferedReader name='Embeddings/GoogleNews-vectors-negative300.bin.gz' 0x1a0e33e320>}
 2019-06-10 16:54:05,698 - gensim.models.utils_any2vec - INFO - loaded (3000000, 300) matrix from Embeddings/GoogleNews-vectors-negative300.bin.gz
 2019-06-10 16:54:06,066 - root - INFO - -. Word2Vec embedding .-
+2019-06-10 17:05:25,249 - root - INFO - -. GloVe embedding .-
+2019-06-10 17:05:25,252 - root - INFO - Starting filtrated with WordNet
+2019-06-10 17:05:27,254 - root - INFO - Finished filtrated with WordNet
+2019-06-10 17:19:41,324 - root - INFO - -. GloVe embedding .-
+2019-06-10 17:19:41,326 - root - INFO - Starting filtrated with WordNet
+2019-06-10 17:19:43,041 - root - INFO - Finished filtrated with WordNet
+2019-06-10 17:21:15,509 - root - INFO - -. GloVe embedding .-
+2019-06-10 17:21:15,509 - root - INFO - Starting filtrated with WordNet
+2019-06-10 17:21:17,964 - root - INFO - Finished filtrated with WordNet
+2019-06-10 17:45:50,226 - root - INFO - -. GloVe embedding .-
+2019-06-10 17:45:50,229 - root - INFO - Starting filtrated with WordNet
+2019-06-10 17:45:51,977 - root - INFO - Finished filtrated with WordNet
+2019-06-10 17:58:19,913 - root - INFO - -. GloVe embedding .-
+2019-06-10 17:58:19,914 - root - INFO - Starting filtrated with WordNet
+2019-06-10 17:58:21,733 - root - INFO - Finished filtrated with WordNet
+2019-06-10 18:09:05,795 - root - INFO - Finished random distances in the array of arrays
+2019-06-10 18:09:05,797 - root - INFO - Start taking random distances
+2019-06-10 18:09:07,277 - root - INFO - Finished random distances
+2019-06-10 18:09:27,642 - root - INFO - Finished random distances in the array of arrays
+2019-06-10 18:14:23,338 - root - INFO - -. GloVe embedding .-
+2019-06-10 18:14:23,341 - root - INFO - Starting filtrated with WordNet
+2019-06-10 18:14:25,820 - root - INFO - Finished filtrated with WordNet
+2019-06-10 18:25:06,692 - root - INFO - Finished random distances in the array of arrays
+2019-06-10 18:25:06,694 - root - INFO - Start taking random distances
+2019-06-10 18:25:08,289 - root - INFO - Finished random distances
+2019-06-10 18:25:24,321 - root - INFO - Finished random distances in the array of arrays
+2019-06-10 18:25:24,636 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-10 18:25:24,686 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000

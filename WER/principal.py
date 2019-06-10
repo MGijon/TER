@@ -1,27 +1,34 @@
 from nltk.corpus import wordnet as wn
 import os
-import numpy as np
+
 import pickle as plk
 import random
 import scipy.spatial.distance
 import pandas as pd
-import gensim.models as gm
+from tempfile import TemporaryFile
 
 from scipy.stats import entropy
+import numpy as np
 from numpy.linalg import norm
+
+import gensim
+import gensim.models as gm
 from gensim.test.utils import datapath, get_tmpfile
 from gensim.models import KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
-from tempfile import TemporaryFile
 
 import sklearn.metrics
 from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
+from sklearn.preprocessing import normalize
 
 import heapq
-from sklearn.preprocessing import normalize
 import logging
-import gensim
+
+import functools
+import time
+from scipy import stats
+
 
 
 class WER(object):
@@ -247,6 +254,18 @@ class WER(object):
 
             value = len(vector) - non_sing_changes
 
+        #################################################
+        # norma epsilon
+        # ===========
+        elif norma == 29:
+            epsilon = 0
+            for coordinate in range(0, len(vector)):
+                auxiliar = abs(vector[coordinate] - vector2[coordinate])
+                if auxiliar > epsilon:
+                    epsilon = auxiliar
+            value = epsilon
+
+
         else:
             value = 0
 
@@ -259,23 +278,23 @@ class WER(object):
         :return:
         '''
 
-        setOfArrays = [] # cqmbiar nombre en el futuro, este conjunto no es un set si no un array
+        vectorsArray = []
 
         # GloVe
         # =====
         if self.type == 1:
             for word in setOfWords:
-                setOfArrays.append(self.embeddings_index[word])
+                vectorsArray.append(self.embeddings_index[word])
 
         # Word2Vec
         # ========
         elif self.type == 2:
             for word in setOfWords:
-                setOfArrays.append(self.model.get_vector(word))
+                vectorsArray.append(self.model.get_vector(word))
         else:
             pass
 
-        return setOfArrays
+        return vectorsArray
 
     def filterWN(self):
         '''
@@ -369,7 +388,7 @@ class WER(object):
         # =====
         if self.type == 1:
             for conjunto_sinonimos in list:
-                conjunto_sinonimos = list(set(conjunto_sinonimos))
+                #conjunto_sinonimos = list(set(conjunto_sinonimos))
                 for i in range(0, len(conjunto_sinonimos)):
                     if i + 1 < len(conjunto_sinonimos):
                         try:
@@ -385,7 +404,7 @@ class WER(object):
         # ========
         elif self.type == 2:
             for conjunto_sinonimos in lista:
-                conjunto_sinonimos = list(set(conjunto_sinonimos))
+                #conjunto_sinonimos = list(set(conjunto_sinonimos))
                 for i in range(0, len(conjunto_sinonimos)):
                     if i + 1 < len(conjunto_sinonimos):
                         try:
@@ -494,7 +513,7 @@ class WER(object):
                     conjunto.remove(conjuntito)
 
         self.synonims = conjunto
-        self.synonimsDistribution = self.randomDistancesList(lista=conjunto, norma=norma)
+        self.synonimsDistribution = self.randomDistancesList(list=conjunto, norma=norma)
 
     def synonymsComplementary(self, norma=1, number=5000):
         '''
@@ -830,6 +849,17 @@ class WER(object):
 
 
 
+    @staticmethod
+    def KolmogorovSmirlov(data1=[], data2=[]):
+        '''
+
+        :param data1:
+        :param data2:
+        :return: D (float), p-value (float)
+        '''
+
+        results = stats.ks_2samp(data1, data2)
+        return results
 
 
 
