@@ -21,6 +21,7 @@ ks, p = embedding.KolmogorovSmirlov(data1=embedding.synonimsDistribution, data2=
 _, bins, _ = plt.hist(embedding.synonimsDistribution, bins=50, normed=True, alpha=.3, label="synonyms")
 _ = plt.hist(embedding.antonimsDistribution, bins=bins, alpha=0.3, normed=True, label="antonyms")
 
+plt.figure(figsize=(20, 14))
 plt.title("Synonyms vs. Antonyms " + ' - ks: ' + str(ks) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
@@ -35,6 +36,7 @@ ks2, p = embedding.KolmogorovSmirlov(data1=embedding.synonimsDistribution, data2
 _, bins, _ = plt.hist(embedding.synonimsDistribution, bins=50, normed=True, alpha=.3, label="synonyms")
 _ = plt.hist(embedding.randomDistribution, bins=bins, alpha=0.3, normed=True, label="not ralated words")
 
+plt.figure(figsize=(20, 14))
 plt.title("Synonyms vs. not related words " + ' - ks: ' + str(ks2) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
@@ -48,6 +50,7 @@ ks2, p = embedding.KolmogorovSmirlov(data1=embedding.antonimsDistribution, data2
 _, bins, _ = plt.hist(embedding.antonimsDistribution, bins=50, normed=True, alpha=.3, label="antonyms")
 _ = plt.hist(embedding.randomDistribution, bins=bins, alpha=0.3, normed=True, label="not ralated words")
 
+plt.figure(figsize=(20, 14)) 
 plt.title("Antonyms vs. not related words " + ' - ks: ' + str(ks2) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
