@@ -271,7 +271,7 @@ class WER(object):
         elif norma == 30:
             epsions = 0
             for coordinate in range(0, len(vector)):
-                epsilons += abs(vector[coordinate] - vector2[coordinate])
+                epsions += abs(vector[coordinate] - vector2[coordinate])
             value = epsions / len(vector)
 
         else:

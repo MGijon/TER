@@ -140,3 +140,30 @@
 2019-06-11 05:37:25,759 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
 2019-06-11 05:37:26,088 - matplotlib.legend - WARNING - No handles with labels found to put in legend.
 2019-06-11 05:37:26,387 - matplotlib.legend - WARNING - No handles with labels found to put in legend.
+2019-06-12 19:13:24,197 - root - INFO - -. GloVe embedding .-
+2019-06-12 19:13:24,205 - root - INFO - Starting filtrated with WordNet
+2019-06-12 19:13:26,594 - root - INFO - Finished filtrated with WordNet
+2019-06-12 19:22:59,568 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:22:59,570 - root - INFO - Start taking random distances
+2019-06-12 19:23:01,091 - root - INFO - Finished random distances
+2019-06-12 19:23:17,387 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:23:17,821 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-12 19:23:17,881 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-12 19:25:46,647 - root - INFO - -. GloVe embedding .-
+2019-06-12 19:25:46,664 - root - INFO - Starting filtrated with WordNet
+2019-06-12 19:25:48,615 - root - INFO - Finished filtrated with WordNet
+2019-06-12 19:35:29,625 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:35:29,627 - root - INFO - Start taking random distances
+2019-06-12 19:35:30,616 - root - INFO - Finished random distances
+2019-06-12 19:35:47,754 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:35:48,149 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-12 19:35:48,265 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-12 19:37:44,025 - root - INFO - -. GloVe embedding .-
+2019-06-12 19:37:44,042 - root - INFO - Starting filtrated with WordNet
+2019-06-12 19:37:46,242 - root - INFO - Finished filtrated with WordNet
+2019-06-12 19:47:41,602 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:47:41,605 - root - INFO - Start taking random distances
+2019-06-12 19:47:43,293 - root - INFO - Finished random distances
+2019-06-12 19:47:58,913 - root - INFO - Finished random distances in the array of arrays
+2019-06-12 19:47:59,179 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-12 19:47:59,222 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
