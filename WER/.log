@@ -167,3 +167,10 @@
 2019-06-12 19:47:58,913 - root - INFO - Finished random distances in the array of arrays
 2019-06-12 19:47:59,179 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
 2019-06-12 19:47:59,222 - matplotlib.font_manager - DEBUG - findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/Users/manuelgijon/anaconda3/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000
+2019-06-13 15:45:55,957 - gensim.models.utils_any2vec - INFO - loading projection weights from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-13 15:45:55,958 - smart_open.smart_open_lib - DEBUG - {'kw': {}, 'mode': 'rb', 'uri': 'Embeddings/GoogleNews-vectors-negative300.bin.gz'}
+2019-06-13 15:45:55,959 - smart_open.smart_open_lib - DEBUG - encoding_wrapper: {'errors': 'strict', 'encoding': None, 'mode': 'rb', 'fileobj': <gzip _io.BufferedReader name='Embeddings/GoogleNews-vectors-negative300.bin.gz' 0x1a205824a8>}
+2019-06-13 15:47:48,616 - gensim.models.utils_any2vec - INFO - loaded (3000000, 300) matrix from Embeddings/GoogleNews-vectors-negative300.bin.gz
+2019-06-13 15:47:48,990 - root - INFO - -. Word2Vec embedding .-
+2019-06-13 15:47:48,990 - root - INFO - Starting filtrated with WordNet
+2019-06-13 15:47:51,401 - root - INFO - Finished filtrated with WordNet

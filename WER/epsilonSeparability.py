@@ -2,7 +2,7 @@ from principal import WER
 import matplotlib.pyplot as plt
 
 # load an Wor2Vec embedding
-embedding = WER(path="Embeddings/", type="GloVe")
+embedding = WER(path="Embeddings/", type="Word2Vec")
 # filter by WordNet
 embedding.filterWN()
 
@@ -25,7 +25,7 @@ _ = plt.hist(embedding.antonimsDistribution, bins=bins, alpha=0.3, normed=True, 
 plt.title("Synonyms vs. Antonyms " + ' - ks: ' + str(ks) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
-plt.savefig("Results/EpsilonPonderateSynonymsAntonyms")
+plt.savefig("Results/W2V-EpsilonPonderateSynonymsAntonyms")
 
 
 ## Synonyms Vs Random
@@ -40,7 +40,7 @@ _ = plt.hist(embedding.randomDistribution, bins=bins, alpha=0.3, normed=True, la
 plt.title("Synonyms vs. not related words " + ' - ks: ' + str(ks2) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
-plt.savefig("Results/EpsilonPonderateSynonymsRandom")
+plt.savefig("Results/W2V-EpsilonPonderateSynonymsRandom")
 
 
 ## Antonyms Vs Random
@@ -55,4 +55,4 @@ _ = plt.hist(embedding.randomDistribution, bins=bins, alpha=0.3, normed=True, la
 plt.title("Antonyms vs. not related words " + ' - ks: ' + str(ks2) + ' - p value: ' + str(p))
 plt.xlabel("values")
 plt.legend()
-plt.savefig("Results/EpsilonPonderateAntonymsRandom")
+plt.savefig("Results/W2V-EpsilonPonderateAntonymsRandom")
