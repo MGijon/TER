@@ -99,9 +99,9 @@ class WER(object):
         self.synonimsDistribution = []
         self.random_words_pairs = []
         self.randomDistribution = []
-        self.synonimsDistributionComplementary = []
-        self.synonimsComplementary = []
-        self.auxiliar_list = []
+        #self.synonimsDistributionComplementary = []    comprobar si se usan y si no borrarlas
+        #self.synonimsComplementary = []
+        #self.auxiliar_list = []
         self.antonims = []
         self.antonimsDistribution = []
         self.wordSynset = []
@@ -279,6 +279,11 @@ class WER(object):
 
         return value
 
+    ########
+    ########
+    #### NO TIENE USO !!!! ####
+    ########
+
     def returnVector(self, setOfWords = []):
         '''
 
@@ -303,6 +308,11 @@ class WER(object):
             pass
 
         return vectorsArray
+
+    ########
+    ########
+    ########
+    ########
 
     def filterWN(self):
         '''
@@ -523,6 +533,9 @@ class WER(object):
         self.synonims = conjunto
         self.synonimsDistribution = self.randomDistancesList(list=conjunto, norma=norma)
 
+
+
+    ########################################################
     def synonymsComplementary(self, norma=1, number=5000):
         '''
         Fill synonimsComplementary array and compute a random sample of their distribution
@@ -546,6 +559,13 @@ class WER(object):
         self.synonimsComplementary = words_no_synomims
 
         self.synonimsDistributionComplementary = self.randomDistances(words=auxiliar, norma=norma, number=number)
+
+
+
+    #########################################################
+
+
+
 
     def randomFilteredWords(self, norma=1, number=5000, all=False):
         '''
@@ -580,6 +600,9 @@ class WER(object):
 
         return auxiliar
 
+
+
+        ########################################
     def distancesBetweenSet(self, norma=1, words=[]):
         '''
         Compute the distances between a word (the element 0 in the array) and a set of words.
@@ -624,6 +647,12 @@ class WER(object):
 
         return (result)
 
+
+
+#################################
+
+
+
     def notVocabularyDistribution(self, norma = 1):
         '''
         :param norma:
@@ -655,6 +684,10 @@ class WER(object):
 
         self.wordSynset = lista
 
+
+
+
+#################################################
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
         '''
         Recives a word and compute the NN for it
@@ -683,6 +716,8 @@ class WER(object):
                      range(num_results)]
 
         return resultado
+
+###########################################
 
     @staticmethod
     def clearArrayOfArrays(data=[]):
