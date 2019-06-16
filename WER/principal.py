@@ -158,6 +158,7 @@ class WER(object):
                  two vectors
         '''
 
+        norma = norma.lower()
 
         if norma == 1 or norma is "euclidean":
             calculo = vector
@@ -316,7 +317,8 @@ class WER(object):
 
     def filterWN(self):
         '''
-        Filtramos por wordnet
+        From self.words takes the words that are in WordNet and save them in
+        self.filtered_words.
         :return: None
         '''
         self.logger.info('Starting filtrated with WordNet')
