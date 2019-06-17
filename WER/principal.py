@@ -3,11 +3,12 @@ import os
 
 import pickle as plk
 import random
-import scipy.spatial.distance
 import pandas as pd
 from tempfile import TemporaryFile
 
+import scipy.spatial.distance
 from scipy.stats import entropy
+
 import numpy as np
 from numpy.linalg import norm
 
@@ -99,14 +100,10 @@ class WER(object):
         self.synonimsDistribution = []
         self.random_words_pairs = []
         self.randomDistribution = []
-        #self.synonimsDistributionComplementary = []    comprobar si se usan y si no borrarlas
-        #self.synonimsComplementary = []
-        #self.auxiliar_list = []
         self.antonims = []
         self.antonimsDistribution = []
         self.wordSynset = []
 
-        ## inicializamos el logger
         logger_name = log
 
         self.logger = logging.getLogger(logger_name)
@@ -133,7 +130,7 @@ class WER(object):
             f.close()
             self.words = list(self.embeddings_index.keys())
 
-            self.logger.info('-. GloVe embedding .-')
+            self.logger.info('-. GloVe embedding .-\n')
 
         # WORD2VEC
         # ========
@@ -141,16 +138,16 @@ class WER(object):
             self.model = gensim.models.KeyedVectors.load_word2vec_format(path + 'GoogleNews-vectors-negative300.bin.gz', binary=True)
             self.words = list(self.model.vocab)
 
-            self.logger.info('-. Word2Vec embedding .-')
+            self.logger.info('-. Word2Vec embedding .-\n')
 
         else:
             print('ERROR')
-            self.logger.info('FATAL ERROR, the embedding has not been charged')
+            self.logger.info('FATAL ERROR, the embedding has not been charged for some unknown reason.')
 
 
     def norm(self, vector, vector2, norma=1):
         '''
-
+        Compute the distance between two vectors under the selected norm.
         :param vector:
         :param vector2:
         :param norma:
@@ -199,7 +196,6 @@ class WER(object):
             value = scipy.spatial.distance.correlation(vector, vector2)
 
         elif norma == 14 or norma is "braycurtis":
-
             value = scipy.spatial.distance.braycurtis(vector, vector2)
 
         elif norma == 15 or norma is "canberra":
@@ -209,14 +205,14 @@ class WER(object):
             value = scipy.spatial.distance.cdis(vector, vector2)
 
         elif norma == 17 or norma is "max5":
-            # take the sum of the 5 maximun diference dimensions
+            # take the sum of the 5 maximun difference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(5, v2)
             value = sum(aux)
 
         elif norma == 18 or norma is "max10":
-            # take the sum of the 10 maximun diference dimensions
+            # take the sum of the 10 maximun difference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(10, v2)
@@ -224,21 +220,21 @@ class WER(object):
 
 
         elif norma == 19 or norma is "max25":
-            # take the sum of the 25 maximun diference dimensions
+            # take the sum of the 25 maximun difference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(25, v2)
             value = sum(aux)
 
         elif norma == 20 or norma is "max50":
-            # take the sum of the 50 maximun diference dimensions
+            # take the sum of the 50 maximun difference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(50, v2)
             value = sum(aux)
 
         elif norma == 21 or norma is "max100":
-            # take the sum of the 100 maximun diference dimensions
+            # take the sum of the 100 maximun difference dimensions
             v = vector2 - vector
             v2 = [abs(x) for x in v]
             aux = heapq.nlargest(100, v2)
@@ -280,40 +276,35 @@ class WER(object):
 
         return value
 
-    ########
-    ########
-    #### NO TIENE USO !!!! ####
-    ########
-
     def returnVector(self, setOfWords = []):
         '''
-
+        To get the vectorial representation of a list of words in the embedding
+        space.
         :param setOfWords:
         :return:
         '''
 
         vectorsArray = []
 
-        # GloVe
-        # =====
-        if self.type == 1:
-            for word in setOfWords:
-                vectorsArray.append(self.embeddings_index[word])
+        try:
+            # GloVe
+            # =====
+            if self.type == 1:
+                for word in setOfWords:
+                    vectorsArray.append(self.embeddings_index[word])
 
-        # Word2Vec
-        # ========
-        elif self.type == 2:
-            for word in setOfWords:
-                vectorsArray.append(self.model.get_vector(word))
-        else:
-            pass
+            # Word2Vec
+            # ========
+            elif self.type == 2:
+                for word in setOfWords:
+                    vectorsArray.append(self.model.get_vector(word))
+        except:
+            message = 'Sorry, in this list of words there is at least one word that is not in the vocabulary of the embedding'
+            print(message)
+            self.logger.info('Failed returnVector function - some word not in vocabulary\n')
+            pass # to let the programm continue
 
         return vectorsArray
-
-    ########
-    ########
-    ########
-    ########
 
     def filterWN(self):
         '''
@@ -322,29 +313,32 @@ class WER(object):
         :return: None
         '''
         self.logger.info('Starting filtrated with WordNet')
+
         wn_lemmas = set(wn.all_lemma_names())
         for j in self.words:
             if j in wn_lemmas:
                 self.filtered_words.append(j)
 
         self.filtered_words = list(set(self.filtered_words))
+
         self.logger.info('Finished filtrated with WordNet')
 
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
 
-        :param words:
-        :param number:
+        :param words: array, list of words
+        :param number: number od samples if all = False
         :param all: boolean, if True then take as many random distances as elements
                     has the set.
         :param norma:
-        :return:
+        :return: distances array
         '''
 
         self.logger.info("Start taking random distances")
-        distancias = []
+        distances = []
 
         pairs = []
+
         # GloVe
         # =====
         if self.type == 1:
@@ -357,12 +351,13 @@ class WER(object):
 
             for j in range(0, number - 1):
                 try:
-                    distancia = self.norm(vector=self.embeddings_index[words[j]],
-                                          vector2=self.embeddings_index[words[j + 1]], norma=norma)
-                    distancias.append(distancia)
+                    distance = self.norm(vector=self.embeddings_index[words[j]],
+                                         vector2=self.embeddings_index[words[j + 1]],
+                                         norma=norma)
+                    distances.append(distance)
                 except Exception as e:
                     print (e)
-                    distancias.append(0)
+                    distances.append(0)
                     pass
 
         # Word2Vec
@@ -377,24 +372,25 @@ class WER(object):
 
             for j in range(0, number - 1):
                 try:
-                    distancia = self.norm(vector=self.model.get_vector(words[j]),
-                                          vector2=self.model.get_vector(words[j + 1]), norma=norma)
-                    distancias.append(distancia)
+                    distance = self.norm(vector=self.model.get_vector(words[j]),
+                                         vector2=self.model.get_vector(words[j + 1]),
+                                         norma=norma)
+                    distances.append(distance)
                 except Exception as e:
                     print (e)
-                    distancias.append(0)
+                    distances.append(0)
                     pass
 
         else:
             pass
 
         self.logger.info("Finished random distances")
-        return distancias
+        return distances
 
     def randomDistancesList(self, list, norma=1):
         '''
 
-        :param lista:
+        :param list:
         :param number:
         :param all:
         :param norma:
@@ -402,45 +398,46 @@ class WER(object):
                  set
         '''
 
-        distancias = []
+        distances = []
 
         # GloVe
         # =====
         if self.type == 1:
-            for conjunto_sinonimos in list:
-                #conjunto_sinonimos = list(set(conjunto_sinonimos))
-                for i in range(0, len(conjunto_sinonimos)):
-                    if i + 1 < len(conjunto_sinonimos):
+            for synonims_set in list:
+                for i in range(0, len(synonims_set)):
+                    if i + 1 < len(synonims_set):
                         try:
-                            distancia = self.norm(vector=self.embeddings_index[conjunto_sinonimos[i]],
-                                                  vector2=self.embeddings_index[conjunto_sinonimos[i + 1]], norma=norma)
-                            distancias.append(distancia)
+                            distance = self.norm(vector=self.embeddings_index[synonims_set[i]],
+                                                 vector2=self.embeddings_index[synonims_set[i + 1]],
+                                                 norma=norma)
+                            distances.append(distance)
                         except Exception as e:
                             print(e)
-                            distancias.append(0)
+                            distances.append(0)
                             pass
 
         # Word2Vec
         # ========
         elif self.type == 2:
-            for conjunto_sinonimos in lista:
-                #conjunto_sinonimos = list(set(conjunto_sinonimos))
-                for i in range(0, len(conjunto_sinonimos)):
-                    if i + 1 < len(conjunto_sinonimos):
+            for synonims_set in lista:
+                for i in range(0, len(synonims_set)):
+                    if i + 1 < len(synonims_set):
                         try:
-                            distancia = self.norm(vector=self.model.get_vector(conjunto_sinonimos[i]),
-                                                  vector2=self.model.get_vector(conjunto_sinonimos[i + 1]), norma=norma)
-                            distancias.append(distancia)
+                            distance = self.norm(vector=self.model.get_vector(synonims_set[i]),
+                                                 vector2=self.model.get_vector(synonims_set[i + 1]),
+                                                 norma=norma)
+                            distances.append(distance)
                         except Exception as e:
                             print(e)
-                            distancias.append(0)
+                            distances.append(0)
                             pass
         else:
             pass
 
 
         self.logger.info('Finished random distances in the array of arrays')
-        return distancias
+
+        return distances
 
     def pureSynonyms(self):
         '''
@@ -514,7 +511,7 @@ class WER(object):
         :return: None
         '''
 
-        conjunto = []
+        group = []
         for target_word in self.filtered_words:
             synsets = wn.synsets(target_word)
             for synset in synsets:
@@ -523,17 +520,17 @@ class WER(object):
                 numberSynom = len(lemmas)
                 if numberSynom > 1:
                     for lemma in lemmas:
-                        palabra = lemma.name()
-                        if palabra in self.filtered_words:
-                            auxiliar.append(palabra)
-            conjunto.append(auxiliar)
+                        word = lemma.name()
+                        if word in self.filtered_words:
+                            auxiliar.append(word)
+            group.append(auxiliar)
 
-            for conjuntito in conjunto:
-                if len(conjuntito) == 0:
-                    conjunto.remove(conjuntito)
+            for littleGroup in group:
+                if len(littleGroup) == 0:
+                    group.remove(littleGroup)
 
-        self.synonims = conjunto
-        self.synonimsDistribution = self.randomDistancesList(list=conjunto, norma=norma)
+        self.synonims = group
+        self.synonimsDistribution = self.randomDistancesList(list=group, norma=norma)
 
 
 
@@ -560,13 +557,11 @@ class WER(object):
         words_no_synomims = list(set(words_no_synomims))
         self.synonimsComplementary = words_no_synomims
 
-        self.synonimsDistributionComplementary = self.randomDistances(words=auxiliar, norma=norma, number=number)
+        self.synonimsDistributionComplementary = self.randomDistances(words=auxiliar,
+                                                                      norma=norma,
+                                                                      number=number)
 
-
-
-    #########################################################
-
-
+        ########################################################
 
 
     def randomFilteredWords(self, norma=1, number=5000, all=False):
@@ -578,9 +573,13 @@ class WER(object):
         '''
 
         if all:
-            self.randomDistribution = self.randomDistances(words=self.words, norma=norma, number=number)
+            self.randomDistribution = self.randomDistances(words=self.words,
+                                                           norma=norma,
+                                                           number=number)
         else:
-            self.randomDistribution = self.randomDistances(words=self.filtered_words, norma=norma, number=number)
+            self.randomDistribution = self.randomDistances(words=self.filtered_words,
+                                                           norma=norma,
+                                                           number=number)
 
 
     def returnSinonyms(self, word):
@@ -604,7 +603,6 @@ class WER(object):
 
 
 
-        ########################################
     def distancesBetweenSet(self, norma=1, words=[]):
         '''
         Compute the distances between a word (the element 0 in the array) and a set of words.
@@ -614,6 +612,7 @@ class WER(object):
         '''
 
         result = []
+
         # GloVe
         # =====
         if self.type == 1:
@@ -622,12 +621,15 @@ class WER(object):
                 for i in j[1:]:
                     inicial = self.embeddings_index[i[0]]
                     try:
-                        valor = self.norm(vector=inicial, vector2=self.embeddings_index[i], norma=norma)
+                        valor = self.norm(vector=inicial,
+                                          vector2=self.embeddings_index[i],
+                                          norma=norma)
                         aux.append(valor)
                     except KeyError:
                         pass
 
                 result.append(aux)
+
         # Word2Vec
         # ========
         elif self.type == 2:
@@ -636,7 +638,9 @@ class WER(object):
                 for i in j[1:]:
                     inicial = self.model.get_vector[i[0]]
                     try:
-                        valor = self.norm(vector=inicial, vector2=self.model.get_vector[i], norma=norma)
+                        valor = self.norm(vector=inicial,
+                                          vector2=self.model.get_vector[i],
+                                          norma=norma)
                         aux.append(valor)
                     except KeyError:
                         pass
@@ -649,9 +653,6 @@ class WER(object):
 
         return (result)
 
-
-
-#################################
 
 
 
@@ -689,7 +690,7 @@ class WER(object):
 
 
 
-#################################################
+    # SEGUIR TRABAJANDO CON ESTA ES IMPERIOSO!!
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
         '''
         Recives a word and compute the NN for it
@@ -700,26 +701,32 @@ class WER(object):
         :return: (word, closest words, distance to the closest one)
         '''
 
-        #   PARECE NO FUNCIONAR PARA MAS DE UN RESULTADO
+        # GloVe
+        # =====
+        if self.type == 1:
+            wordsAndDistances = []
 
-        wordsAndDistances = []
+            if len(vector_words) != 0:
+                for i in vector_words:
+                    iVector = self.embeddings_index[i]
+                    for j in enviroment:
+                        jVector = self.embeddings_index[j]
+                        jdistance = self.norm(vector=iVector, vector2=jVector, norma=norma)
+                        wordsAndDistances.append((i, j, jdistance))
+                        minimun = sorted(wordsAndDistances, key=lambda v: v[2])
 
-        if len(vector_words) != 0:
-            for i in vector_words:
-                iVector = self.embeddings_index[i]
-                for j in enviroment:
-                    jVector = self.embeddings_index[j]
-                    jdistance = self.norm(vector=iVector, vector2=jVector, norma=norma)
-                    wordsAndDistances.append((i, j, jdistance))
-                    minimun = sorted(wordsAndDistances, key=lambda v: v[2])
+            result = [(minimun[h][0], minimun[h][1], minimun[h][2]) for h in range(num_results)]
 
-        resultado = [(minimun[h][0], minimun[h][1], minimun[h][2]) for h
-                     in
-                     range(num_results)]
+        elif self.type == 2:
 
-        return resultado
+            # bla bla bla boolean
+            pass
+        else:
+            pass
 
-###########################################
+
+        return result
+
 
     @staticmethod
     def clearArrayOfArrays(data=[]):
@@ -879,6 +886,16 @@ class WER(object):
 
         clase = type(self).__name__
 
+    @staticmethod
+    def KolmogorovSmirlov(data1=[], data2=[]):
+        '''
+        Compute the Kolmogorov-Smirlov statistics of the two given distributions,
+        :param data1: array of values (distribution 1).
+        :param data2: array of values (distribution 2).
+        :return: D (float), p-value (float)
+        '''
+        return stats.ks_2samp(data1, data2)
+
     def test(self):
         '''
         Test function
@@ -891,22 +908,5 @@ class WER(object):
         resoult2 = self.norm(vector=vector, vector2=vector2,
                              norma=2)
         print(resoult2)
-
-
-
-    @staticmethod
-    def KolmogorovSmirlov(data1=[], data2=[]):
-        '''
-
-        :param data1:
-        :param data2:
-        :return: D (float), p-value (float)
-        '''
-
-        results = stats.ks_2samp(data1, data2)
-        return results
-
-
-
 
 # realizar unit testing and integration testing
