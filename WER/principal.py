@@ -689,17 +689,16 @@ class WER(object):
 
 
 
-
-    # SEGUIR TRABAJANDO CON ESTA ES IMPERIOSO!!
+'''
     def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
-        '''
+
         Recives a word and compute the NN for it
         :param vector_words:
         :param norma:
         :param enviroment:
         :param num_results:
         :return: (word, closest words, distance to the closest one)
-        '''
+
 
         # GloVe
         # =====
@@ -726,7 +725,7 @@ class WER(object):
 
 
         return result
-
+'''
 
     @staticmethod
     def clearArrayOfArrays(data=[]):
