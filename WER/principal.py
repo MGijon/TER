@@ -271,8 +271,15 @@ class WER(object):
                 epsions += abs(vector[coordinate] - vector2[coordinate])
             value = epsions / len(vector)
 
+        ##
+        # norma Armand
+        # ==========
+        elif norma == 31:
+            differenceVector = [abs(vector[i] - vector2[i]) for i in range(0, len(vector))]
+            value = differenceVector
+
         else:
-            value = 0
+            pass
 
         return value
 
