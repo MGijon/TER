@@ -155,7 +155,6 @@ class WER(object):
                  two vectors
         '''
 
-        norma = norma.lower()
 
         if norma == 1 or norma is "euclidean":
             calculo = vector
@@ -426,7 +425,7 @@ class WER(object):
         # Word2Vec
         # ========
         elif self.type == 2:
-            for synonims_set in lista:
+            for synonims_set in list:
                 for i in range(0, len(synonims_set)):
                     if i + 1 < len(synonims_set):
                         try:
@@ -694,45 +693,6 @@ class WER(object):
 
         self.wordSynset = lista
 
-
-
-'''
-    def nearestNeighbour(self, vector_words=[], norma=1, enviroment=[], num_results=1):
-
-        Recives a word and compute the NN for it
-        :param vector_words:
-        :param norma:
-        :param enviroment:
-        :param num_results:
-        :return: (word, closest words, distance to the closest one)
-
-
-        # GloVe
-        # =====
-        if self.type == 1:
-            wordsAndDistances = []
-
-            if len(vector_words) != 0:
-                for i in vector_words:
-                    iVector = self.embeddings_index[i]
-                    for j in enviroment:
-                        jVector = self.embeddings_index[j]
-                        jdistance = self.norm(vector=iVector, vector2=jVector, norma=norma)
-                        wordsAndDistances.append((i, j, jdistance))
-                        minimun = sorted(wordsAndDistances, key=lambda v: v[2])
-
-            result = [(minimun[h][0], minimun[h][1], minimun[h][2]) for h in range(num_results)]
-
-        elif self.type == 2:
-
-            # bla bla bla boolean
-            pass
-        else:
-            pass
-
-
-        return result
-'''
 
     @staticmethod
     def clearArrayOfArrays(data=[]):
