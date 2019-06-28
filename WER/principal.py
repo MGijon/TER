@@ -148,9 +148,9 @@ class WER(object):
     def norm(self, vector, vector2, norma=1):
         '''
         Compute the distance between two vectors under the selected norm.
-        :param vector:
-        :param vector2:
-        :param norma:
+        :param vector: (array, floats) self-explanatory.
+        :param vector2: (array, floats) self-explanatory.
+        :param norma: distance
         :return: value of the distence (under the selected norm) between the
                  two vectors
         '''
@@ -250,9 +250,6 @@ class WER(object):
 
             value = len(vector) - non_sing_changes
 
-        #################################################
-        # norma epsilon
-        # ===========
         elif norma == 29:
             epsilon = 0
             for coordinate in range(0, len(vector)):
@@ -261,18 +258,13 @@ class WER(object):
                     epsilon = auxiliar
             value = epsilon
 
-        ##
-        # norma epsilon ponderada
-        # ==========
         elif norma == 30:
             epsions = 0
             for coordinate in range(0, len(vector)):
                 epsions += abs(vector[coordinate] - vector2[coordinate])
             value = epsions / len(vector)
 
-        ##
-        # norma Armand
-        # ==========
+
         elif norma == 31:
             differenceVector = [abs(vector[i] - vector2[i]) for i in range(0, len(vector))]
             value = differenceVector
@@ -286,8 +278,8 @@ class WER(object):
         '''
         To get the vectorial representation of a list of words in the embedding
         space.
-        :param setOfWords:
-        :return:
+        :param setOfWords: (arra, strings) list of words.
+        :return: (array, floats) vectorial representation of the passed words.
         '''
 
         vectorsArray = []
@@ -329,6 +321,8 @@ class WER(object):
 
         self.logger.info('Finished filtrated with WordNet')
 
+
+    # eliminar parámetro all, no es necesario
     def randomDistances(self, words, number=5000, all=False, norma=1):
         '''
 
@@ -567,7 +561,7 @@ class WER(object):
                                                                       norma=norma,
                                                                       number=number)
 
-        ########################################################
+    ########################################################
 
 
     def randomFilteredWords(self, norma=1, number=5000, all=False):
@@ -659,9 +653,6 @@ class WER(object):
 
         return (result)
 
-
-
-
     def notVocabularyDistribution(self, norma = 1):
         '''
         :param norma:
@@ -673,10 +664,10 @@ class WER(object):
 
         return self.randomDistances(norma=norma, words=list(conjunto_palabras), number=10000)
 
-
     def wordSynsetConstruct(self):
         '''
-
+        Take the words save in the array self.filtered_words and fill the array
+        self.words_synsets with arrays [word, name of synsets it belongs].
         :return: None
         '''
 
@@ -692,7 +683,6 @@ class WER(object):
             lista.append((j, aux))
 
         self.wordSynset = lista
-
 
     @staticmethod
     def clearArrayOfArrays(data=[]):
