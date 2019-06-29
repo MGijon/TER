@@ -15,7 +15,7 @@ setup(
      description="bla bla bla bla",
      long_description="bla bla bla bla bla bla bla bla",
      long_description_content_type="text/markdown",
-     url="https://github.com/MGijon/TER",
+     url="https://github.com/MGijon/WER",
      packages=find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3.6.5",
