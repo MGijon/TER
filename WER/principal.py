@@ -28,6 +28,13 @@ import sklearn.metrics
 from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
+# Seaborn package
+import seaborn as sns
+# Mathplotlib package
+import matplotlib.pyplot as plt
+
+
+
 
 class WER(object):
     '''
@@ -861,5 +868,63 @@ class WER(object):
         resoult2 = self.norm(vector=vector, vector2=vector2,
                              norma=2)
         print(resoult2)
+
+    @staticmethod
+    def stackedBar(list_1, list_2, title_list1="", title_list2="", title="", xlabel="", ylabel="", savetitle=""):
+        '''
+
+        :param list_1:
+        :param list_2:
+        :param title_list1:
+        :param title_list2:
+        :param xlabel:
+        :param ylabel:
+        :param savetitle:
+        :return:
+        '''
+
+        p1 = plt.bar(1, list_1)
+        p2 = plt.bar(1, list_2)
+
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+
+        plt.legend((p1[0], p2[0]), (title_list1, title_list2))
+
+        plt.savefig(savetitle)
+        plt.show()
+
+    @staticmethod
+    def twoHistograms(list_1, list_2, title_list1="", title_list2="", title="", xlabel="", ylabel="",
+                          savetitle=""):
+        '''
+
+        :param list_1:
+        :param list_2:
+        :param title_list1:
+        :param title_list2:
+        :param title:
+        :param xlabel:
+        :param ylabel:
+        :param savetitle:
+        :return:
+        '''
+        plt.figure(figsize=(20, 14))
+
+        s = Estadisticas()
+        ks, p = s.KolmogorovSmirlov(data1=list_1, data2=list_2)
+
+        _, bins, _ = plt.hist(list_1, bins=50, normed=True, alpha=.3, label=title_list1)
+        _ = plt.hist(list_2, bins=bins, alpha=0.3, normed=True, label=title_list2)
+
+        plt.title(title + ' - ks: ' + str(ks) + ' - p value: ' + str(p))
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+
+        plt.legend()
+
+        plt.savefig(savetitle)
+        plt.show()
 
 # realizar unit testing and integration testing
