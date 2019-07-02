@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: WER
+Version: 0.1
+Summary: bla bla bla bla
+Home-page: https://github.com/MGijon/WER
+Author: Manuel Gijón Agudo
+Author-email: manuel.gijon@outlook.es
+License: UNKNOWN
+Description: bla bla bla bla bla bla bla bla
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6.5
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
