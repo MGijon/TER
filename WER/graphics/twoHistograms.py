@@ -1,4 +1,8 @@
-@staticmethod
+# Seaborn package
+#import seaborn as sns
+# Mathplotlib package
+import matplotlib.pyplot as plt
+
 def twoHistograms(list_1, list_2, title_list1="", title_list2="", title="", xlabel="", ylabel="",
                       savetitle=""):
     '''

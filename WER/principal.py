@@ -28,10 +28,7 @@ import sklearn.metrics
 from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
-# Seaborn package
-import seaborn as sns
-# Mathplotlib package
-import matplotlib.pyplot as plt
+
 
 
 
@@ -869,7 +866,7 @@ class WER(object):
                              norma=2)
         print(resoult2)
 
-    
+
 
 
 # realizar unit testing and integration testing
