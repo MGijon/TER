@@ -843,6 +843,8 @@ class WER(object):
 
         clase = type(self).__name__
 
+
+    # A ELIMINAR!!
     @staticmethod
     def KolmogorovSmirlov(data1=[], data2=[]):
         '''

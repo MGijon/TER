@@ -14,7 +14,7 @@ setup(
      author="Manuel Gijón Agudo",
      author_email="manuel.gijon@outlook.es",
      description="This package provides a commoon interface for working with GloVe or Word2Vec embeddings.",
-     long_description="This package provides a commoon interface for working with GloVe or Word2Vec embeddings.",
+     long_description="This package provides a commoon interface for working with GloVe or Word2Vec embeddings. ",
      long_description_content_type="text/markdown",
      url="https://github.com/MGijon/WER",
      packages=find_packages(),
