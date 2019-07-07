@@ -28,6 +28,8 @@ import sklearn.metrics
 from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
+# Scipy package
+from scipy import stats
 
 
 
@@ -867,6 +869,16 @@ class WER(object):
         resoult2 = self.norm(vector=vector, vector2=vector2,
                              norma=2)
         print(resoult2)
+
+    @staticmethod
+    def KolmogorovSmirlov(data1=[], data2=[]):
+        '''
+        Compute the Kolmogorov-Smirlov statistics of the two given distributions,
+        :param data1: array of values (distribution 1).
+        :param data2: array of values (distribution 2).
+        :return: D (float), p-value (float)
+        '''
+        return stats.ks_2samp(data1, data2)
 
 
 
