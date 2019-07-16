@@ -148,135 +148,7 @@ class WER(object):
             self.logger.info('FATAL ERROR, the embedding has not been charged for some unknown reason.')
 
 
-    def norm(self, vector, vector2, norma=1):
-        '''
-        Compute the distance between two vectors under the selected norm.
-        :param vector: (array, floats) self-explanatory.
-        :param vector2: (array, floats) self-explanatory.
-        :param norma: distance
-        :return: value of the distence (under the selected norm) between the
-                 two vectors
-        '''
-
-
-        if norma == 1 or norma is "euclidean":
-            calculo = vector
-            for i in range(0, len(vector)):
-                calculo[i] = calculo[i] - vector2[i]
-            suma = 0
-            for i in calculo:
-                suma += np.power(i, 2)
-            value = np.sqrt(suma)
-        elif norma == 2 or norma is "cosine":
-            value = scipy.spatial.distance.cosine(vector, vector2)
-
-        elif norma == 3 or norma is "cityblock":
-            value = scipy.spatial.distance.cityblock(vector, vector2)
-
-        elif norma == 4 or norma is "l1":
-             value = np.linalg.norm((vector - vector2), ord=1)
-
-        elif norma == 7 or norma is "chebyshev":
-            value = scipy.spatial.distance.chebyshev(vector, vector2)
-
-        elif norma == 8 or norma is "minkowski":
-            value = scipy.spatial.distance.minkowski(vector, vector2)
-
-        elif norma == 9 or norma is "sqeuclidean":
-            value = scipy.spatial.distance.sqeuclidean(vector, vector2)
-
-        elif norma == 10 or norma is "jensenshannon":
-            _P = vector / norm(vector, ord=1)
-            _Q = vector2 / norm(vector2, ord=1)
-            _M = 0.5 * (_P + _Q)
-            value =  0.5 * (entropy(_P, _M) + entropy(_Q, _M))
-
-        elif norma == 12 or norma is "jaccard":
-            sklearn.metrics.jaccard_similarity_score(vector, vector2)
-
-        elif norma == 13 or norma is "correlation":
-            value = scipy.spatial.distance.correlation(vector, vector2)
-
-        elif norma == 14 or norma is "braycurtis":
-            value = scipy.spatial.distance.braycurtis(vector, vector2)
-
-        elif norma == 15 or norma is "canberra":
-            value = scipy.spatial.distance.canberra(vector, vector2)
-
-        elif norma == 16 or norma is "kulsinski":
-            value = scipy.spatial.distance.cdis(vector, vector2)
-
-        elif norma == 17 or norma is "max5":
-            # take the sum of the 5 maximun difference dimensions
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(5, v2)
-            value = sum(aux)
-
-        elif norma == 18 or norma is "max10":
-            # take the sum of the 10 maximun difference dimensions
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(10, v2)
-            value = sum(aux)
-
-
-        elif norma == 19 or norma is "max25":
-            # take the sum of the 25 maximun difference dimensions
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(25, v2)
-            value = sum(aux)
-
-        elif norma == 20 or norma is "max50":
-            # take the sum of the 50 maximun difference dimensions
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(50, v2)
-            value = sum(aux)
-
-        elif norma == 21 or norma is "max100":
-            # take the sum of the 100 maximun difference dimensions
-            v = vector2 - vector
-            v2 = [abs(x) for x in v]
-            aux = heapq.nlargest(100, v2)
-            value = sum(aux)
-
-        elif norma == 28:
-            non_sing_changes = 0
-
-            for i in range(0, len(vector)):
-                if vector[i] >= 0 and vector2[i] >= 0:
-                    non_sing_changes += 1
-                if vector[i] < 0 and vector2[i] < 0:
-                    non_sing_changes += 1
-
-            value = len(vector) - non_sing_changes
-
-        elif norma == 29:
-            epsilon = 0
-            for coordinate in range(0, len(vector)):
-                auxiliar = abs(vector[coordinate] - vector2[coordinate])
-                if auxiliar > epsilon:
-                    epsilon = auxiliar
-            value = epsilon
-
-        elif norma == 30:
-            epsions = 0
-            for coordinate in range(0, len(vector)):
-                epsions += abs(vector[coordinate] - vector2[coordinate])
-            value = epsions / len(vector)
-
-
-        elif norma == 31:
-            differenceVector = [abs(vector[i] - vector2[i]) for i in range(0, len(vector))]
-            value = differenceVector
-
-        else:
-            pass
-
-        return value
-
+    
     def returnVector(self, setOfWords = []):
         '''
         To get the vectorial representation of a list of words in the embedding
@@ -832,30 +704,7 @@ class WER(object):
 
         return (data)
 
-    def __str__(self):
-        '''
-        :return:
-        '''
-        clase = type(self).__name__
 
-    def __repr__(self):
-        '''
-        :return:
-        '''
-
-        clase = type(self).__name__
-
-
-    # A ELIMINAR!!
-    @staticmethod
-    def KolmogorovSmirlov(data1=[], data2=[]):
-        '''
-        Compute the Kolmogorov-Smirlov statistics of the two given distributions,
-        :param data1: array of values (distribution 1).
-        :param data2: array of values (distribution 2).
-        :return: D (float), p-value (float)
-        '''
-        return stats.ks_2samp(data1, data2)
 
     def test(self):
         '''
@@ -870,15 +719,6 @@ class WER(object):
                              norma=2)
         print(resoult2)
 
-    @staticmethod
-    def KolmogorovSmirlov(data1=[], data2=[]):
-        '''
-        Compute the Kolmogorov-Smirlov statistics of the two given distributions,
-        :param data1: array of values (distribution 1).
-        :param data2: array of values (distribution 2).
-        :return: D (float), p-value (float)
-        '''
-        return stats.ks_2samp(data1, data2)
 
 
 
