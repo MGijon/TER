@@ -8,7 +8,10 @@ with open("README.md", "r") as fh:
 setup(
      name='WER',
      version='0.1',
-     scripts=['principal',
+     scripts=['principal/distance',
+              'principal/filterWN',
+              'principal/returnVector',
+              'principal/test.py'
               'graphics/stackedBar',
               'graphics/twoHistograms'] ,
      author="Manuel Gijón Agudo",
