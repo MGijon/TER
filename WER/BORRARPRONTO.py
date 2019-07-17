@@ -28,8 +28,9 @@ import sklearn.metrics
 from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
+
 # Scipy package
-from scipy import stats
+#from scipy import stats
 
 
 
@@ -148,36 +149,7 @@ class WER(object):
             self.logger.info('FATAL ERROR, the embedding has not been charged for some unknown reason.')
 
 
-    
-    def returnVector(self, setOfWords = []):
-        '''
-        To get the vectorial representation of a list of words in the embedding
-        space.
-        :param setOfWords: (arra, strings) list of words.
-        :return: (array, floats) vectorial representation of the passed words.
-        '''
 
-        vectorsArray = []
-
-        try:
-            # GloVe
-            # =====
-            if self.type == 1:
-                for word in setOfWords:
-                    vectorsArray.append(self.embeddings_index[word])
-
-            # Word2Vec
-            # ========
-            elif self.type == 2:
-                for word in setOfWords:
-                    vectorsArray.append(self.model.get_vector(word))
-        except:
-            message = 'Sorry, in this list of words there is at least one word that is not in the vocabulary of the embedding'
-            print(message)
-            self.logger.info('Failed returnVector function - some word not in vocabulary\n')
-            pass # to let the programm continue
-
-        return vectorsArray
 
     def filterWN(self):
         '''
