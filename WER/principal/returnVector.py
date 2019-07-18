@@ -29,28 +29,21 @@ from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
 
-def returnVector(self, setOfWords = [], type):
-    '''
-    To get the vectorial representation of a list of words in the embedding
-    space.
-    :param setOfWords: (arra, strings) list of words.
-    :return: (array, floats) vectorial representation of the passed words.
-    '''
+def returnVector(embedding_dictionay , type, setOfWords):
 
     vectorsArray = []
 
     try:
         # GloVe
-        # =====
         if type == 1:
             for word in setOfWords:
-                vectorsArray.append(self.embeddings_index[word])
+                vectorsArray.append(embeddings_index[word])   # arreglar esto
 
         # Word2Vec
         # ========
         elif type == 2:
             for word in setOfWords:
-                vectorsArray.append(self.model.get_vector(word))
+                vectorsArray.append(self.model.get_vector(word))   # arreglar esto
     except:
         message = 'Sorry, in this list of words there is at least one word that is not in the vocabulary of the embedding'
         print(message)

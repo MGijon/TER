@@ -5,7 +5,7 @@ import random
 import pandas as pd
 from tempfile import TemporaryFile
 import heapq
-import logging
+#import logging
 import functools
 import time
 # NLTK package
@@ -40,7 +40,7 @@ class WER(object):
     '''
     '''
 
-    
+
 
 
 
@@ -109,7 +109,6 @@ class WER(object):
         else:
             pass
 
-        self.logger.info("Finished random distances")
         return distances
 
     def randomDistancesList(self, list, norma=1):
@@ -553,24 +552,3 @@ class WER(object):
         infile.close()
 
         return (data)
-
-
-
-    def test(self):
-        '''
-        Test function
-        :return: None
-        '''
-        print('It works!!')
-        vector = [1, 1, 1, 1, 1, 1, 1, 1]
-        vector2 = [1, 1, 1, 1, 1, 1, 100, 100]
-
-        resoult2 = self.norm(vector=vector, vector2=vector2,
-                             norma=2)
-        print(resoult2)
-
-
-
-
-
-# realizar unit testing and integration testing
