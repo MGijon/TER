@@ -1,13 +1,10 @@
-normdef distance(self, vector, vector2, norm=1):
-    '''
-    Compute the distance between two vectors under the selected norm.
-    :param vector: (array, floats) self-explanatory.
-    :param vector2: (array, floats) self-explanatory.
-    :param norm: distance
-    :return: value of the distence (under the selected norm) between the
-             two vectors
-    '''
-
+''' Compute the distance between two vectors under the selected norm.
+:param vector: (array, floats) self-explanatory.
+:param vector2: (array, floats) self-explanatory.
+:param norm: distance
+:return: value of the distence (under the selected norm) between the two vectors
+'''
+def distance(self, vector, vector2, norm=1):
 
     if norm == 1 or norm is "euclidean":
 
@@ -18,7 +15,7 @@ normdef distance(self, vector, vector2, norm=1):
         for i in calculo:
             suma += np.power(i, 2)
         value = np.sqrt(suma)
-        
+
     elif norm == 2 or norm is "cosine":
         value = scipy.spatial.distance.cosine(vector, vector2)
 

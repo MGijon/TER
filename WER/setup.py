@@ -13,7 +13,11 @@ setup(
               'principal/returnVector',
               'principal/test.py'
               'graphics/stackedBar',
-              'graphics/twoHistograms'] ,
+              'graphics/twoHistograms',
+              'statistics/AndersonDarling',
+              'statistics/KolmogorovSmirlov',
+              'statistics/Lilliefors',
+              'statistics/ShapiroWilk'] ,
      author="Manuel Gijón Agudo",
      author_email="manuel.gijon@outlook.es",
      description="This package provides a commoon interface for working with GloVe or Word2Vec embeddings.",
