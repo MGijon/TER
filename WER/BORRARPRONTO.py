@@ -163,59 +163,9 @@ class WER(object):
 
         return distances
 
-    def pureSynonyms(self):
-        '''
-        Compute the set of synonims, without distances
-        :return: None
-        '''
-        conjunto = []
-        for target_word in self.filtered_words:
-            synsets = wn.synsets(target_word)
-            for synset in synsets:
-                auxiliar = []
-                lemmas = synset.lemmas()
-                numberSynom = len(lemmas)
-                if numberSynom > 1:
-                    for lemma in lemmas:
-                        palabra = lemma.name()
-                        if palabra in self.filtered_words:
-                            auxiliar.append(palabra)
-            conjunto.append(auxiliar)
 
-            for conjuntito in conjunto:
-                if len(conjuntito) == 0:
-                    conjunto.remove(conjuntito)
 
-        self.synonims = conjunto
-
-    def pureAntonyms(self):
-        '''
-        Just compute the set of synonims, without distances
-        :return: None
-        '''
-
-        conjunto = []
-        for target_word in self.filtered_words:
-            synsets = wn.synsets(target_word)
-            for synset in synsets:
-                auxiliar = []
-                lemmas = synset.lemmas()
-                numberSynom = len(lemmas)
-                if numberSynom > 1:
-                    for lemma in lemmas:
-                        if lemma.antonyms():
-                            antonimo = lemma.antonyms()[0].name()
-                            if antonimo in self.filtered_words:
-                                auxiliar.append(target_word)  # new line
-                                auxiliar.append(antonimo)
-            conjunto.append(auxiliar)
-
-            for conjuntito in conjunto:
-                if len(conjuntito) == 0:
-                    conjunto.remove(conjuntito)
-
-        self.antonims = conjunto
-
+    
     def antonymsFilteredWords(self, norma = 1):
         '''
         Fills the antonimsDistribution array (from antonims set)
