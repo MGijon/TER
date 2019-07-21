@@ -165,7 +165,7 @@ class WER(object):
 
 
 
-    
+
     def antonymsFilteredWords(self, norma = 1):
         '''
         Fills the antonimsDistribution array (from antonims set)
@@ -394,23 +394,7 @@ class WER(object):
         self.logger.info("Ended arrayOfArraysToArray")
         return (list(set(resoult)))
 
-    def saveWords(self, name="saveWordsWithoutName"):
-        '''
-        Save lists of words in a pickle file
-        :param name:
-        :return: None
-        '''
-
-        self.logger.info('Starting saveWords')
-        try:
-            filename = name
-            outfile = open(filename, 'wb')
-            plk.dump(self.words, outfile)
-            outfile.close()
-        except Exception as e:
-            print(e)
-            pass
-        self.looger.info('Finished saveWords')
+    
 
     @staticmethod
     def loadWords(name="saveWordsWithoutName"):

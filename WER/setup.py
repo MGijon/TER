@@ -11,7 +11,8 @@ setup(
      scripts=['principal/distance',
               'principal/filterWN',
               'principal/returnVector',
-              'principal/test.py'
+              'principal/test',
+              'principal/savePickle'
               'graphics/stackedBar',
               'graphics/twoHistograms',
               'statistics/AndersonDarling',
