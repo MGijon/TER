@@ -12,7 +12,9 @@ setup(
               'principal/filterWN',
               'principal/returnVector',
               'principal/test',
-              'principal/savePickle'
+              'principal/savePickle',
+              'principal/saveEmbedding',
+              'principal/loadEmbeddingDictionary',
               'graphics/stackedBar',
               'graphics/twoHistograms',
               'statistics/AndersonDarling',

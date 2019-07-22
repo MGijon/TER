@@ -394,7 +394,7 @@ class WER(object):
         self.logger.info("Ended arrayOfArraysToArray")
         return (list(set(resoult)))
 
-    
+
 
     @staticmethod
     def loadWords(name="saveWordsWithoutName"):
@@ -452,37 +452,6 @@ class WER(object):
 
         return (data)
 
-    def saveEmbedding(self, name="saveEmbeddingWithoutName"):
-        '''
-        Save the words and their representations in a dictionary using pickle format
-        :param name:
-        :return: None
-        '''
 
-        data = {}
-        for i in self.words:
-            data[i] = self.embeddings_index[i]
 
-        try:
-            filename = name
-            outfile = open(filename, 'wb')
-            plk.dump(data, outfile)
-            outfile.close()
-        except Exception as e:
-            print(e)
-            pass
-
-    @staticmethod
-    def loadEmbeddingDict(name="saveEmbeddingWithoutName"):
-        '''
-        Load a dictionary, (word, representation_in_the_embedding)
-        :param name: name of the file
-        :return: Dictionary (str, Array of numbers)
-        '''
-
-        filename = name
-        infile = open(filename, 'rb')
-        data = plk.load(infile)
-        infile.close()
-
-        return (data)
+    
