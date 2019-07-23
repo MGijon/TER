@@ -1,6 +1,6 @@
 from principal import loadEmbedding
 
-
+import os
 
 ## SEMANA 1
 ## - Cargar el embedding con las funciones del paquete,
@@ -16,8 +16,12 @@ from principal import loadEmbedding
 ## por ahora coloco todas las dependencias, borraré las innecesarias en el futuro!!
 
 
+#datos = loadEmbedding.loadEmbedding(path="../Embeddings/", type="GloVe")
 
-test.test()
+#print(len(datos['words']))
 
 
+
+
+print([print(file) for file in os.listdir('../Embeddings/')])
 ## SEMANA 2

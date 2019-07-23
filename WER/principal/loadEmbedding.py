@@ -39,37 +39,43 @@ def loadEmbedding(path='Embeddings/', embedding_name='', embedings_size=300, typ
 
     # debería hacer más robusto el tema del nombre (aceptar cosas como GloVE)
     # ya me aseguraré en el futuro de   que haga más cosas
-    allowed_types = {'GloVe':1, 'Word2Vec':2}
+    type = type.lower()
+    allowed_types = {'glove':1,
+                     'word2vec':2}
 
     embedding_dictionary = {} # element to return
 
-    # GloVe
-    # -----
-    if type == 1:
+    try:
+        # GloVe
+        # -----
+        if type == 1 or allowed_types[type] == 1:
+            print('ENTRA!!!!')
+            embedding_dictionary['embedding_name'] = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
+            f = open(os.path.join(path, embedding_dictionary['embedding_name']))
 
-        embedding_dictionary['embedding_name'] = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
-        f = open(os.path.join(path, embedding_dictionary['embedding_name']))
+            for line in f:
+                values = line.split()
+                word = values[0]
+                coefs = np.asarray(values[1:], dtype='float32')
+                embedding_dictionary['embeddings_index'][word] = coefs
 
-        for line in f:
-            values = line.split()
-            word = values[0]
-            coefs = np.asarray(values[1:], dtype='float32')
-            embedding_dictionary['embeddings_index'][word] = coefs
-
-        f.close()
-        embedding_dictionary['words'] = list(embeddings_index.keys())
-
-
-    # Word2Vec
-    # --------
-    elif type == 2:
-        embedding_dictionary['model'] = gensim.models.KeyedVectors.load_word2vec_format(
-                                        path + 'GoogleNews-vectors-negative300.bin.gz',
-                                        binary=True)
-        embedding_dictionary['words'] = list(embedding_dictionary['model'].vocab)
-
-    else:
-        print('Fatal error loading the embedding')
+            f.close()
+            embedding_dictionary['words'] = list(embeddings_index.keys())
 
 
-    return embedding_dictionary
+        # Word2Vec
+        # --------
+        elif type == 2 or allowed_types[type] == 2:
+            embedding_dictionary['model'] = gensim.models.KeyedVectors.load_word2vec_format(
+                                            path + 'GoogleNews-vectors-negative300.bin.gz',
+                                            binary=True)
+            embedding_dictionary['words'] = list(embedding_dictionary['model'].vocab)
+
+        else:
+            print('Fatal error loading the embedding')
+
+
+        return embedding_dictionary
+
+    except:
+        print('Error loading the embedding')
