@@ -16,12 +16,23 @@ import os
 ## por ahora coloco todas las dependencias, borraré las innecesarias en el futuro!!
 
 
-#datos = loadEmbedding.loadEmbedding(path="../Embeddings/", type="GloVe")
+# Word2Vec
+datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+                                    embedding_size=300,
+                                    type="Word2Vec")
+
+# GloVe dimension 300
+size = 300
+#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+#                                    embeding_name='glove.6B.300d.txt',
+#                                    embedings_size=size,
+#                                    type="GloVe")
+
 
 #print(len(datos['words']))
 
 
 
 
-print([print(file) for file in os.listdir('../Embeddings/')])
+#print([print(file) for file in os.listdir('../Embeddings/')])
 ## SEMANA 2

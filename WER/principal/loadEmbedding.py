@@ -35,7 +35,7 @@ from sklearn.preprocessing import normalize
 #from scipy import stats
 
 
-def loadEmbedding(path='Embeddings/', embedding_name='', embedings_size=300, type='GloVe'):
+def loadEmbedding(path='Embeddings/', embeding_name='', embedings_size, type='GloVe'):
 
     # debería hacer más robusto el tema del nombre (aceptar cosas como GloVE)
     # ya me aseguraré en el futuro de   que haga más cosas
@@ -49,23 +49,33 @@ def loadEmbedding(path='Embeddings/', embedding_name='', embedings_size=300, typ
         # GloVe
         # -----
         if type == 1 or allowed_types[type] == 1:
-            print('ENTRA!!!!')
-            embedding_dictionary['embedding_name'] = 'glove.6B.' + str(self.embedings_size) + 'd.txt'
-            f = open(os.path.join(path, embedding_dictionary['embedding_name']))
+            print('el tipo de embedding lo pilla sin problemas')
+            embedding_dictionary['dimension'] = embedding_size
+            embedding_dictionary['embedding_name'] = embedding_name
+            print(embedding_dictionary['embedding_name'])
+            # loading the embedding
+            try:
+                f = open(os.path.join(path, embedding_dictionary['embedding_name']))
 
-            for line in f:
-                values = line.split()
-                word = values[0]
-                coefs = np.asarray(values[1:], dtype='float32')
-                embedding_dictionary['embeddings_index'][word] = coefs
-
-            f.close()
+                for line in f:
+                    values = line.split()
+                    word = values[0]
+                    coefs = np.asarray(values[1:], dtype='float32')
+                    embedding_dictionary['embeddings_index'][word] = coefs
+                    f.close()
+            except FileNotFoundError as fnf_error:
+                print(fnf_error)
+            finally:
+                print('borrar esta parte pronto, no ccreo que me haga dalta')
             embedding_dictionary['words'] = list(embeddings_index.keys())
 
 
         # Word2Vec
         # --------
         elif type == 2 or allowed_types[type] == 2:
+            print('el tipo de embedding lo pilla sin problemas')
+            embedding_dictionary['dimension'] = embedding_size
+            print(embedding_dictionary['dimension'])
             embedding_dictionary['model'] = gensim.models.KeyedVectors.load_word2vec_format(
                                             path + 'GoogleNews-vectors-negative300.bin.gz',
                                             binary=True)
