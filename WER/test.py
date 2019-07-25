@@ -17,9 +17,9 @@ import os
 
 
 # Word2Vec
-datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
-                                    embedding_size=300,
-                                    type="Word2Vec")
+#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+#                                    embedding_size=300,
+#                                    type="Word2Vec")
 
 # GloVe dimension 300
 size = 300
@@ -28,6 +28,7 @@ size = 300
 #                                    embedings_size=size,
 #                                    type="GloVe")
 
+print(size)
 
 #print(len(datos['words']))
 
