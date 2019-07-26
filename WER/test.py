@@ -17,18 +17,19 @@ import os
 
 
 # Word2Vec
-#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
-#                                    embedding_size=300,
-#                                    type="Word2Vec")
+datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+                                    embeding_name="GoogleNews-vectors-negative300.bin.gz",
+                                    embedings_size=300,
+                                    type="Word2Vec")
 
 # GloVe dimension 300
-size = 300
+#size = 300
 #datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
 #                                    embeding_name='glove.6B.300d.txt',
 #                                    embedings_size=size,
 #                                    type="GloVe")
 
-print(size)
+#print(size)
 
 #print(len(datos['words']))
 

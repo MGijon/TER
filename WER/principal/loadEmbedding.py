@@ -31,11 +31,7 @@ from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
 
-# Scipy package
-#from scipy import stats
-
-
-def loadEmbedding(path='Embeddings/', embeding_name='', embedings_size, type='GloVe'):
+def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  type='GloVe'):
 
     # debería hacer más robusto el tema del nombre (aceptar cosas como GloVE)
     # ya me aseguraré en el futuro de   que haga más cosas
@@ -43,16 +39,19 @@ def loadEmbedding(path='Embeddings/', embeding_name='', embedings_size, type='Gl
     allowed_types = {'glove':1,
                      'word2vec':2}
 
-    embedding_dictionary = {} # element to return
+    embedding_dictionary = {
+        'dimension':0,
+        'embeding_name': '',
+        'model': [],
+        'words': [],
+    } # element to return
 
     try:
-        # GloVe
+        # GloVe : NO ACABA DE FUNCIONAR CORRECTAMENTE
         # -----
         if type == 1 or allowed_types[type] == 1:
-            print('el tipo de embedding lo pilla sin problemas')
             embedding_dictionary['dimension'] = embedding_size
             embedding_dictionary['embedding_name'] = embedding_name
-            print(embedding_dictionary['embedding_name'])
             # loading the embedding
             try:
                 f = open(os.path.join(path, embedding_dictionary['embedding_name']))
@@ -73,11 +72,17 @@ def loadEmbedding(path='Embeddings/', embeding_name='', embedings_size, type='Gl
         # Word2Vec
         # --------
         elif type == 2 or allowed_types[type] == 2:
-            print('el tipo de embedding lo pilla sin problemas')
+            print('Word2Vec\n')
+            print(embedding_dictionary)
+            print('\n')
+            print(type(embedding_dictionary))
+
             embedding_dictionary['dimension'] = embedding_size
+            print('hasta aquí si')
             print(embedding_dictionary['dimension'])
+            embedding_dictionary['embedding_name'] = embedding_name
             embedding_dictionary['model'] = gensim.models.KeyedVectors.load_word2vec_format(
-                                            path + 'GoogleNews-vectors-negative300.bin.gz',
+                                            path + embeding_name,
                                             binary=True)
             embedding_dictionary['words'] = list(embedding_dictionary['model'].vocab)
 
