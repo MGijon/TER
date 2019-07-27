@@ -39,7 +39,7 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
     allowed_types = {'glove':1,
                      'word2vec':2}
 
-    embedding_dictionary = {
+    dict = {
         'dimension':0,
         'embeding_name': '',
         'model': [],
@@ -50,47 +50,41 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
         # GloVe : NO ACABA DE FUNCIONAR CORRECTAMENTE
         # -----
         if type == 1 or allowed_types[type] == 1:
-            embedding_dictionary['dimension'] = embedding_size
-            embedding_dictionary['embedding_name'] = embedding_name
+            dict['dimension'] = embedding_size
+            dict['embedding_name'] = embedding_name
             # loading the embedding
             try:
-                f = open(os.path.join(path, embedding_dictionary['embedding_name']))
+                f = open(os.path.join(path, dict['embedding_name']))
 
                 for line in f:
                     values = line.split()
                     word = values[0]
                     coefs = np.asarray(values[1:], dtype='float32')
-                    embedding_dictionary['embeddings_index'][word] = coefs
+                    dict['embeddings_index'][word] = coefs
                     f.close()
             except FileNotFoundError as fnf_error:
                 print(fnf_error)
             finally:
                 print('borrar esta parte pronto, no ccreo que me haga dalta')
-            embedding_dictionary['words'] = list(embeddings_index.keys())
+            dict['words'] = list(embeddings_index.keys())
 
 
         # Word2Vec
         # --------
         elif type == 2 or allowed_types[type] == 2:
-            print('Word2Vec\n')
-            print(embedding_dictionary)
-            print('\n')
-            print(type(embedding_dictionary))
-
-            embedding_dictionary['dimension'] = embedding_size
-            print('hasta aquí si')
-            print(embedding_dictionary['dimension'])
-            embedding_dictionary['embedding_name'] = embedding_name
-            embedding_dictionary['model'] = gensim.models.KeyedVectors.load_word2vec_format(
+            dict['dimension'] = embedings_size
+            dict['embeding_name'] = embeding_name
+            print(path + dict['embeding_name'])
+            dict['model'] = gensim.models.KeyedVectors.load_word2vec_format(
                                             path + embeding_name,
                                             binary=True)
-            embedding_dictionary['words'] = list(embedding_dictionary['model'].vocab)
+            dict['words'] = list(dict['model'].vocab)
 
         else:
             print('Fatal error loading the embedding')
 
 
-        return embedding_dictionary
+        return dict
 
     except:
         print('Error loading the embedding')
