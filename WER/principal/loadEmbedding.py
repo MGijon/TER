@@ -53,21 +53,18 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
         if type == 1 or allowed_types[type] == 1:
             dict['dimension'] = embedings_size
             dict['embeding_name'] = embeding_name
-            #print(dict['embeding_name'])
-            #print(path)
-            # loading the embedding
+            indexes = {}
             with open(os.path.join(path, embeding_name)) as f:
-            #print(f)
-            #print(os.path.join(path, dict['embeding_name']))
                 for line in f:
                     values = line.split()
                     word = values[0]
                     coefs = np.asarray(values[1:], dtype='float32')
-                    dict['embeddings_index'] = coefs
+                    indexes[word] = coefs
+                dict['embeddings_index'] = indexes
                 f.close()
 
 
-            dict['words'] = list(dict['embeddings_index'].keys())
+            dict['words'] = list(indexes.keys())
 
 
         # Word2Vec
