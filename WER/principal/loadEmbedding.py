@@ -44,28 +44,29 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
         'embeding_name': '',
         'model': [],
         'words': [],
+        'embeddings_index': [], # solo en el caso de GloVe
     } # element to return
 
     try:
         # GloVe : NO ACABA DE FUNCIONAR CORRECTAMENTE
         # -----
         if type == 1 or allowed_types[type] == 1:
-            dict['dimension'] = embedding_size
-            dict['embedding_name'] = embedding_name
+            dict['dimension'] = embedings_size
+            dict['embeding_name'] = embeding_name
+            #print(dict['embeding_name'])
+            #print(path)
             # loading the embedding
-            try:
-                f = open(os.path.join(path, dict['embedding_name']))
+            f = open(os.path.join(path, embeding_name))
+            #print(f)
+            #print(os.path.join(path, dict['embeding_name']))
+            for line in f:
+                values = line.split()
+                word = values[0]
+                coefs = np.asarray(values[1:], dtype='float32')
+                dict['embeddings_index'] = (word, coefs)
+                f.close()
 
-                for line in f:
-                    values = line.split()
-                    word = values[0]
-                    coefs = np.asarray(values[1:], dtype='float32')
-                    dict['embeddings_index'][word] = coefs
-                    f.close()
-            except FileNotFoundError as fnf_error:
-                print(fnf_error)
-            finally:
-                print('borrar esta parte pronto, no ccreo que me haga dalta')
+
             dict['words'] = list(embeddings_index.keys())
 
 
@@ -86,5 +87,5 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
 
         return dict
 
-    except:
-        print('Error loading the embedding')
+    except Exception as e:
+        print(e)
