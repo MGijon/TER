@@ -40,7 +40,7 @@ def returnVector(embedding_dictionay, type, setOfWords):
         # GloVe
         if allowed_types[type] == 1:
             for word in setOfWords:
-                vectorsArray.append(embeddings_index[word])
+                vectorsArray.append(embedding_dictionay['embeddings_index'][word])
 
         # Word2Vec
         # ========
