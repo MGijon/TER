@@ -1,4 +1,4 @@
-from principal import loadEmbedding
+from principal import loadEmbedding, returnVector
 
 import os
 
@@ -17,22 +17,26 @@ import os
 
 
 # Word2Vec
-#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
-#                                    embeding_name="GoogleNews-vectors-negative300.bin.gz",
-#                                    embedings_size=300,
-#                                    type="Word2Vec")
+datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+                                    embeding_name="GoogleNews-vectors-negative300.bin.gz",
+                                    embedings_size=300,
+                                    type="Word2Vec")
+
+print(returnVector.returnVector(datos, type="Word2Vec", setOfWords=['house']))
+
+
 
 #print([file for file in os.listdir('../Embeddings/')])
 # GloVe dimension 300
-size = 300
-datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
-                                    embeding_name='glove.6B.300d.txt',
-                                    embedings_size=size,
-                                    type="GloVe")
+#size = 300
+#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+#                                    embeding_name='glove.6B.300d.txt',
+#                                    embedings_size=size,
+#                                    type="GloVe")
 
 #print(size)
 
-#print(len(datos['words']))
+print(len(datos['words']))
 
 
 

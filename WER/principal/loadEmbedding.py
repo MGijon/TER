@@ -72,7 +72,6 @@ def loadEmbedding(embeding_name='', embedings_size=300, path='Embeddings/',  typ
         elif type == 2 or allowed_types[type] == 2:
             dict['dimension'] = embedings_size
             dict['embeding_name'] = embeding_name
-            print(path + dict['embeding_name'])
             dict['model'] = gensim.models.KeyedVectors.load_word2vec_format(
                                             path + embeding_name,
                                             binary=True)
