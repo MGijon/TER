@@ -2,11 +2,11 @@ from principal import loadEmbedding, returnVector
 
 import os
 
-## SEMANA 1
-## - Cargar el embedding con las funciones del paquete,
-## - poder elegir el tipo de embedding y la ruta en la que lo almacenamos con un
-##   dos stings diferentes
-##  - Obtener representaciones vectoriales qye se impriman por pantalla de cada una de los vectoriales
+## SEMANA 2
+## filterWN .- poder filtrar el vocabulario con wordnet
+## Hacer funcionar la función de distancias
+## funcion para tomar parejas aleatorias con una distancia dada
+
 
 ## ---------------------------------------------------------------------------------------------------
 ## !! printar histogramsas de vectores podría ser una buena idea de comprobar la teoría!!!!
