@@ -1,12 +1,19 @@
-''' 
-:return: None
+'''
+:return: 
 '''
 
-def filterWN(self):
+# NLTK package
+from nltk.corpus import wordnet as wn
+
+
+def filterWN(setOfWords):
+
+    auxiliar = []
 
     wn_lemmas = set(wn.all_lemma_names())
-    for j in self.words:
-        if j in wn_lemmas:
-            self.filtered_words.append(j)
+    for word in setOfWords:
+        if word in wn_lemmas:
+            auxiliar.append(word)
 
-    self.filtered_words = list(set(self.filtered_words))
+    auxiliar = list(set(auxiliar))
+    return auxiliar
