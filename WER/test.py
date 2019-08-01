@@ -1,4 +1,4 @@
-from principal import loadEmbedding, returnVector, filterWN
+from principal import loadEmbedding, returnVector, filterWN, distance
 
 import os
 
@@ -17,10 +17,10 @@ import os
 
 
 # Word2Vec
-datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
-                                    embeding_name="GoogleNews-vectors-negative300.bin.gz",
-                                    embedings_size=300,
-                                    type="Word2Vec")
+#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+#                                    embeding_name="GoogleNews-vectors-negative300.bin.gz",
+#                                    embedings_size=300,
+#                                    type="Word2Vec")
 
 #print(returnVector.returnVector(datos, type="Word2Vec", setOfWords=['house']))
 
@@ -36,19 +36,20 @@ datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
 
 #print(returnVector.returnVector(datos, type="GloVe", setOfWords=['house']))
 
-palabras = datos['words']
-print(len(palabras))
+#palabras = datos['words']
+#print(len(palabras))
 
-palabras = filterWN.filterWN(palabras)
-print(len(palabras))
-print(palabras[0:20])
+#palabras = filterWN.filterWN(palabras)
+#print(len(palabras))
+#print(palabras[0:20])
 
 #print(size)
 
 #print(len(datos['words']))
+vector1 = [0 ,1, 2, 3, 4, 5 ,56]
+vector2 = [32 ,21, 22, 123, -34, 5 ,56]
 
+valor = distance.distance(vector1=vector1, vector2=vector2, norm=28)
 
-
-
-
+print(valor)
 ## SEMANA 2
