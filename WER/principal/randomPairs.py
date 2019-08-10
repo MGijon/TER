@@ -50,7 +50,7 @@ def randomDistances(self, words, number=5000, all=False, norma=1):
                 has the set.
     :param norma:
     :return: distances array
-    '''
+
 
     self.logger.info("Start taking random distances")
     distances = []
@@ -113,7 +113,7 @@ def randomDistancesList(self, list, norma=1):
     :param norma:
     :return: array with distances between elements of the sets in the given
              set
-    '''
+
 
     distances = []
 
