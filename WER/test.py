@@ -1,4 +1,4 @@
-from principal import loadEmbedding, returnVector, filterWN, distance
+from principal import loadEmbedding, returnVector, filterWN, distance, random_pairs
 
 import os
 
@@ -29,7 +29,7 @@ import os
 #print([file for file in os.listdir('../Embeddings/')])
 # GloVe dimension 300
 #size = 300
-#datos = loadEmbedding.loadEmbedding(path="../Embeddings/",
+#datos = loadEmbedding.loadEmbedding(patth="../Embeddings/",
 #                                    embeding_name='glove.6B.300d.txt',
 #                                    embedings_size=size,
 #                                    type="GloVe")
@@ -46,10 +46,17 @@ import os
 #print(size)
 
 #print(len(datos['words']))
-vector1 = [0 ,1, 2, 3, 4, 5 ,56]
+vector1 = [0 ,1, 2, 3, 4, 5 ,-56]
 vector2 = [32 ,21, 22, 123, -34, 5 ,56]
 
-valor = distance.distance(vector1=vector1, vector2=vector2, norm=28)
+#valor = distance.distance(vector1=vector1, vector2=vector2, norm=28)
 
-print(valor)
+palabras_test =['hola', 'cabron', 'malnacido', 'desgraciado', 'felon', 'capullo',
+                'comepollas', 'tragasables']
+
+devueltas = randomPairs.random_pairs(listOfWords=palabras_test,
+                                    numberOfPairs=10)
+
+
+print(devueltas)
 ## SEMANA 2

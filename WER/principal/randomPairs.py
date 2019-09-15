@@ -1,6 +1,4 @@
-"""
-
-"""
+""" """
 # Python basic package utilities
 import os
 import pickle as plk
@@ -19,27 +17,27 @@ from scipy.stats import entropy
 from scipy import stats
 
 
-def randomPairs(listOfWords, numberOfPairs):
-
+def random_pairs(listOfWords, numberOfPairs):
+    """random_pairs."""
     pairs = []
 
     for i in range(1, numberOfPairs - 1):
         secure_random = random.SystemRandom()
         pairs.append((secure_random.choice(listOfWords),
-                      secure_random.choice(listOfWords)))
-
+                      secure_random.choice(listOfWords)
+                      ))
 
     return pairs
 
 
-def randomPairsList(arrayOfLists, numberOfPairs):
-
+def random_pairs_list(arrayOfLists, numberOfPairs):
+    """random_pairs_list"""
     pairs = []
 
     for sublist in arrayOfLists:
         for _ in len(0, len(sublist)):
-            # esto debe de ser mejorado y bastante
-            pairs.append(secure_random.choice(sublist),
-                          secure_random.choice(sublist)))
+            pairs.append((secure_random.choice(sublist),
+                          secure_random.choice(sublist)
+                          ))
 
     return pairs
