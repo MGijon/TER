@@ -1,4 +1,4 @@
-from principal import loadEmbedding, returnVector, filterWN, distance, randomPairs
+from principal import distance, random_pairs, load_embedding#, returnVector, filterWN, 
 
 import os
 
@@ -54,7 +54,10 @@ vector2 = [32 ,21, 22, 123, -34, 5 ,56]
 palabras_test =['hola', 'cabron', 'malnacido', 'desgraciado', 'felon', 'capullo',
                 'comepollas', 'tragasables']
 
-devueltas = randomPairs.random_pairs(listOfWords=palabras_test,
+#devueltas = randomPairs.random_pairs(listOfWords=palabras_test,
+#                                    numberOfPairs=10)
+
+devueltas = random_pairs(listOfWords=palabras_test,
                                     numberOfPairs=10)
 
 
