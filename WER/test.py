@@ -1,4 +1,4 @@
-from principal import loadEmbedding, returnVector, filterWN, distance, random_pairs
+from principal import loadEmbedding, returnVector, filterWN, distance, randomPairs
 
 import os
 
