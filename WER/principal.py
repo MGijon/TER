@@ -31,6 +31,8 @@ from sklearn.metrics import pairwise_distances
 from sklearn.metrics.pairwise import pairwise_kernels
 from sklearn.preprocessing import normalize
 
+# EMBEDDING_MANIPULATION
+# ======================
 def load_embedding(embeding_name='', embedings_size=300, path='Embeddings/',  type='GloVe'):
     """Load a pretrained embedding (GloVe or Word2Vec)."""
     type = type.lower()
@@ -110,6 +112,8 @@ def return_vector(embedding_dictionay, type, setOfWords):
 
     return vectorsArray
 
+# DISTANCES
+# =========
 def distance(vector1, vector2, norm=1):
     ''' Compute the distance between two vector1s under the selected norm.
     :param vector1: (array, floats) self-explanatory.
@@ -237,18 +241,9 @@ def distance(vector1, vector2, norm=1):
 
     return value
 
-def filter_WN(setOfWords):
-    """ """
-    auxiliar = []
-
-    wn_lemmas = set(wn.all_lemma_names())
-    for word in setOfWords:
-        if word in wn_lemmas:
-            auxiliar.append(word)
-
-    auxiliar = list(set(auxiliar))
-    return auxiliar
-
+# SAMPLING
+# ========
+# this two will become one
 def random_pairs(listOfWords, numberOfPairs):
     """random_pairs."""
     pairs = []
@@ -272,6 +267,21 @@ def random_pairs_list(arrayOfLists, numberOfPairs):
                           ))
 
     return pairs
+##################################
+
+# SEMANTIC PART
+# =============
+def filter_WN(setOfWords):
+    """ """
+    auxiliar = []
+
+    wn_lemmas = set(wn.all_lemma_names())
+    for word in setOfWords:
+        if word in wn_lemmas:
+            auxiliar.append(word)
+
+    auxiliar = list(set(auxiliar))
+    return auxiliar
 
 def synonyms(self, words):
     '''
@@ -325,6 +335,21 @@ def antonyms(self, words):
 
     return conjunto
 
+# UTILITIES
+# =========
+def array_of_arrays_to_array(data):
+    '''
+
+    :param data:
+    :return:
+    '''
+    resoult = []
+    for i in data:
+        for j in i:
+            resoult.append(j)
+
+    return (list(set(resoult)))
+
 def save_embedding(self, name, words, type):
     '''
     Save the words and their representations in a dictionary using pickle format
@@ -361,116 +386,32 @@ def save_pickle(self, name, element):
         print(e)
         pass
 
+################################################################################
 
-## TO CHECK AN POSSIBILY TO ERASE
-def loadWords(name="saveWordsWithoutName"):
-    '''
-    Load an array of words in pickle format
-    :param name: name of the file
-    :return: Array of strings
-    '''
-    self.logger.info("Starting laodWords")
-    filename = name
-    infile = open(filename, 'rb')
-    data = plk.load(infile)
-    infile.close
-    self.looger.info("Ended loadWords")
-    return data
-
-def arrayOfArraysToArray(data=[]):
+def word_synset_construct(self, list_of_words):
     '''
 
-    :param data:
     :return:
     '''
-    logger.info("Starting arrayOfArraysToArray")
-    resoult = []
-    for i in data:
-        for j in i:
-            resoult.append(j)
-
-    self.logger.info("Ended arrayOfArraysToArray")
-    return (list(set(resoult)))
-
-def saveData(option=1, name='saveDataWihoutName', data=[]):
-    '''
-    Save numerical data from the calculations in python or numpy formats
-    :param option:
-    :param name:
-    :param data:
-    :return: None
-    '''
-
-    if option == 1:
-
-        filename = name
-        outfile = open(filename, 'wb')
-        plk.dump(data, outfile)
-        outfile.close()
-
-    elif option == 2:
-
-        outfile = TemporaryFile()
-        np.save(outfile, data)
-
-    else:
-        print('Error, please read the documentation of this function')
-        pass
-
-def loadData(name="saveDataWithoutName"):
-    '''
-    Load a numeric array in pickle format
-    :param name: name of the file
-    :return: Array of numbers
-    '''
-
-    filename = name
-    infile = open(filename, 'rb')
-    data = plk.load(infile)
-    infile.close()
-
-    return (data)
-
-def clearArrayOfArrays(data=[]):
-    '''
-
-    :param data:
-    :return:
-    '''
-    logger.info("Starting clearArrayOfArrays")
-    newData = []
-    for i in data:
-        auxiliar = []
-        for j in i:
-            if j != 0.0:
-                auxiliar.append(j)
-        if len(auxiliar) != 0:
-            newData.append(auxiliar)
-
-    self.logger.info("Ended clearArrayOfArrays")
-    return (newData)
-
-def wordSynsetConstruct(self):
-    '''
-    Take the words save in the array self.filtered_words and fill the array
-    self.words_synsets with arrays [word, name of synsets it belongs].
-    :return: None
-    '''
-
-    if len(self.filtered_words) == 0:
-        self.filterWN()
-
     lista = []
-    for j in self.words:
-        words_synsets = wn.synsets(j)
+    for word in list_of_words:
+        words_synsets = wn.synsets(word)
         aux = []
         for i in words_synsets:
             aux.append(i.name())
         lista.append((j, aux))
 
-    self.wordSynset = lista
+    return (lista)
 
-def notVocabularyDistribution(self, norma = 1):
+
+
+
+
+################################################################################
+
+
+# auizás sea necesario, pero desde luego debo de replantearlo
+def notVocabularyDistribution(s elf, norma = 1):
     '''
     :param norma:
     :return: Return array of floats with the distributions of the words that
