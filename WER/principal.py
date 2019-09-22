@@ -388,9 +388,10 @@ def save_pickle(self, name, element):
 
 ################################################################################
 
+## TODO: finish description and test it
 def word_synset_construct(self, list_of_words):
     '''
-
+    Given a list of words, it returns RELLENAR ESTO CON QUÉ HACE EN CONCRETO
     :return:
     '''
     lista = []
@@ -493,94 +494,3 @@ def returnSinonyms(self, word):
             auxiliar.append(list(set(vector_auxiliar)))
 
     return auxiliar
-
-
-
-def randomFilteredWords(self, norma=1, number=5000, all=False):
-    '''
-
-    :param norma:
-    :param number:
-    :return:
-    '''
-
-    if all:
-        self.randomDistribution = self.randomDistances(words=self.words,
-                                                       norma=norma,
-                                                       number=number)
-    else:
-        self.randomDistribution = self.randomDistances(words=self.filtered_words,
-                                                       norma=norma,
-                                                       number=number)
-
-
-
-def synonymsComplementary(self, norma=1, number=5000):
-    '''
-    Fill synonimsComplementary array and compute a random sample of their distribution
-    :param norma:
-    :param number:
-    :return: None
-    '''
-
-    words_no_synomims = []
-    for target_word in self.filtered_words:
-        synsets = wn.synsets(target_word)
-        for synset in synsets:
-            lemas = synset.lemmas()
-            numberSynom = len(lemas)
-            if numberSynom == 1:
-                word = lemas[0].name()
-                if word in self.filtered_words:
-                    words_no_synomims.append(p)
-
-    words_no_synomims = list(set(words_no_synomims))
-    self.synonimsComplementary = words_no_synomims
-
-    self.synonimsDistributionComplementary = self.randomDistances(words=auxiliar,
-                                                                  norma=norma,
-                                                                  number=number)
-
-
-
-def antonymsFilteredWords(self, norma = 1):
-    '''
-    Fills the antonimsDistribution array (from antonims set)
-    :param norma:
-    :return: None
-    '''
-
-    self.pureAntonyms() # self.antonims
-
-    self.antonimsDistribution = self.randomDistancesList(self.antonims, norma = norma)
-
-
-
-def synonymsFilteredWords(self, norma=1):
-    '''
-
-    :param norma:
-    :param number:
-    :return: None
-    '''
-
-    group = []
-    for target_word in self.filtered_words:
-        synsets = wn.synsets(target_word)
-        for synset in synsets:
-            auxiliar = []
-            lemmas = synset.lemmas()
-            numberSynom = len(lemmas)
-            if numberSynom > 1:
-                for lemma in lemmas:
-                    word = lemma.name()
-                    if word in self.filtered_words:
-                        auxiliar.append(word)
-        group.append(auxiliar)
-
-        for littleGroup in group:
-            if len(littleGroup) == 0:
-                group.remove(littleGroup)
-
-    self.synonims = group
-    self.synonimsDistribution = self.randomDistancesList(list=group, norma=norma)
