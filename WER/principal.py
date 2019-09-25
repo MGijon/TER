@@ -388,10 +388,10 @@ def save_pickle(self, name, element):
 
 ################################################################################
 
-## TODO: finish description and test it
+## TODO:  test it
 def word_synset_construct(self, list_of_words):
     '''
-    Given a list of words, it returns RELLENAR ESTO CON QUÉ HACE EN CONCRETO
+    Given a list of words, it returns a list (word, other related word)
     :return:
     '''
     lista = []
@@ -400,7 +400,7 @@ def word_synset_construct(self, list_of_words):
         aux = []
         for i in words_synsets:
             aux.append(i.name())
-        lista.append((j, aux))
+        lista.append((word, aux))
 
     return (lista)
 
@@ -409,19 +409,6 @@ def word_synset_construct(self, list_of_words):
 
 
 ################################################################################
-
-
-# auizás sea necesario, pero desde luego debo de replantearlo
-def notVocabularyDistribution(s elf, norma = 1):
-    '''
-    :param norma:
-    :return: Return array of floats with the distributions of the words that
-             are not in the filtered group.
-    '''
-
-    conjunto_palabras = set(self.words) - set(self.filtered_words)
-
-    return self.randomDistances(norma=norma, words=list(conjunto_palabras), number=10000)
 
 
 def distancesBetweenSet(self, norma=1, words=[]):
