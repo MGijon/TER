@@ -267,7 +267,6 @@ def random_pairs_list(arrayOfLists, numberOfPairs):
                           ))
 
     return pairs
-##################################
 
 # SEMANTIC PART
 # =============
@@ -283,7 +282,7 @@ def filter_WN(setOfWords):
     auxiliar = list(set(auxiliar))
     return auxiliar
 
-def synonyms(self, words):
+def synonyms(words):
     '''
     :return: None
     '''
@@ -307,7 +306,7 @@ def synonyms(self, words):
 
     return conjunto
 
-def antonyms(self, words):
+def antonyms(words):
     '''
     Just compute the set of synonims, without distances
     :return: None
@@ -350,7 +349,7 @@ def array_of_arrays_to_array(data):
 
     return (list(set(resoult)))
 
-def save_embedding(self, name, words, type):
+def save_embedding(name, words, type):
     '''
     Save the words and their representations in a dictionary using pickle format
     :param name:
@@ -371,7 +370,7 @@ def save_embedding(self, name, words, type):
         print(e)
         pass
 
-def save_pickle(self, name, element):
+def save_pickle(name, element):
     """ Save lists of words in a pickle file
     :param name:
     :param element:

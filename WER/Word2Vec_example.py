@@ -1,9 +1,9 @@
+"""Word2Vec."""
+
+# WER
 from principal import distance, random_pairs, load_embedding, return_vector, filter_WN
 
 
-
-# Word2Vec
-# ========
 
 datos = load_embedding(path="../Embeddings/",
                        embeding_name="GoogleNews-vectors-negative300.bin.gz",
