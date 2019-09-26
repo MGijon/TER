@@ -256,12 +256,13 @@ def random_pairs(listOfWords, numberOfPairs):
 
     return pairs
 
-def random_pairs_list(arrayOfLists, numberOfPairs):
+def random_pairs_list(arrayOfLists):
     """random_pairs_list"""
     pairs = []
 
     for sublist in arrayOfLists:
-        for _ in len(0, len(sublist)):
+        for _ in range(0, len(sublist)):
+            secure_random = random.SystemRandom()
             pairs.append((secure_random.choice(sublist),
                           secure_random.choice(sublist)
                           ))

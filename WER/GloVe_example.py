@@ -1,7 +1,7 @@
 """GloVe (dimension 300)."""
 
 # WER
-from principal import distance, random_pairs, random_pairs_list, load_embedding, return_vector, filter_WN, synonyms
+from principal import distance, random_pairs, random_pairs_list, load_embedding, return_vector, filter_WN, synonyms, save_pickle
 
 
 size = 300
@@ -61,3 +61,6 @@ for pair in random_synonyms:
 
 # (4)
 # ---
+
+save_pickle(name='random_words_GloVe_example', element=distances_random_pairs)
+save_pickle(name='synonyms_GloVe_example', element=distances_synonyms_pairs)
