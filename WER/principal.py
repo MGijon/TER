@@ -335,6 +335,40 @@ def antonyms(words):
 
     return conjunto
 
+def return_sinonyms(self, word):
+    '''
+    Returns and array of synonims of the given word (based on WordNet)
+    :param word: word whose synonims we want
+    :return: array of synonims
+    '''
+
+    auxiliar = []
+
+    for i in wn.synsets(word):
+        vector_auxiliar = []
+        for j in [x.name() for x in i.lemmas()]:
+            vector_auxiliar.append(j)
+
+        if len(vector_auxiliar) > 1:
+            auxiliar.append(list(set(vector_auxiliar)))
+
+    return auxiliar
+
+def word_synset_construct(list_of_words):
+    '''
+    Given a list of words, it returns a list (word, word_id of other related word)
+    :return:
+    '''
+    lista = []
+    for word in list_of_words:
+        words_synsets = wn.synsets(word)
+        aux = []
+        for i in words_synsets:
+            aux.append(i.name())
+        lista.append((word, aux))
+
+    return (lista)
+
 # UTILITIES
 # =========
 def array_of_arrays_to_array(data):
@@ -385,99 +419,3 @@ def save_pickle(name, element):
     except Exception as e:
         print(e)
         pass
-
-################################################################################
-
-## TODO:  test it
-def word_synset_construct(self, list_of_words):
-    '''
-    Given a list of words, it returns a list (word, other related word)
-    :return:
-    '''
-    lista = []
-    for word in list_of_words:
-        words_synsets = wn.synsets(word)
-        aux = []
-        for i in words_synsets:
-            aux.append(i.name())
-        lista.append((word, aux))
-
-    return (lista)
-
-
-
-
-
-################################################################################
-
-
-def distancesBetweenSet(self, norma=1, words=[]):
-    '''
-    Compute the distances between a word (the element 0 in the array) and a set of words.
-    :param norma:
-    :param words:
-    :return: Array of arrays of words QUE PARARA SI EL ARRAY ES DE UN SOLO MODELO
-    '''
-
-    result = []
-
-    # GloVe
-    # =====
-    if self.type == 1:
-        for j in words:
-            aux = []
-            for i in j[1:]:
-                inicial = self.embeddings_index[i[0]]
-                try:
-                    valor = self.norm(vector=inicial,
-                                      vector2=self.embeddings_index[i],
-                                      norma=norma)
-                    aux.append(valor)
-                except KeyError:
-                    pass
-
-            result.append(aux)
-
-    # Word2Vec
-    # ========
-    elif self.type == 2:
-        for j in words:
-            aux = []
-            for i in j[1:]:
-                inicial = self.model.get_vector[i[0]]
-                try:
-                    valor = self.norm(vector=inicial,
-                                      vector2=self.model.get_vector[i],
-                                      norma=norma)
-                    aux.append(valor)
-                except KeyError:
-                    pass
-
-            result.append(aux)
-
-    else:
-        pass
-
-
-    return (result)
-
-
-
-def returnSinonyms(self, word):
-    '''
-    Returns and array of synonims of the word passed (based on WordNet)
-    :param word: word whose synonims we want
-    :return: array of synonims
-    '''
-
-    auxiliar = []
-
-    for i in wn.synsets(word):
-        vector_auxiliar = []
-        for j in [x.name() for x in i.lemmas()]:
-            vector_auxiliar.append(j)
-
-        if len(vector_auxiliar) > 1:
-            auxiliar.append(list(set(vector_auxiliar)))
-
-    return auxiliar
